@@ -32,6 +32,11 @@ Vue.component(
 );
 
 Vue.component(
+    'importer247',
+    require('./components/importer247/importer247.vue')
+);
+
+Vue.component(
     'fieldset-default-values',
     require('./components/forms/asset-models/fieldset-default-values.vue')
 );

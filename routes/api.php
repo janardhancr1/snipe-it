@@ -751,6 +751,31 @@ Route::group(['prefix' => 'v1','namespace' => 'Api'], function () {
         [ 'as' => 'api.activity.index', 'uses' => 'ReportsController@index' ]
     );
 
+    /*--- Imports247 API ---*/
 
+    Route::resource('imports247', 'Import247Controller',
+        [
+            'names' =>
+                [
+                    'index' => 'api.imports247.index',
+                    'show' => 'api.imports247.show',
+                    'store' => 'api.imports247.store',
+                    'update' => 'api.imports247.update',
+                    'destroy' => 'api.imports247.destroy'
+                ],
+            'except' => ['create', 'edit'],
+            'parameters' => ['import' => 'import_id']
+        ]
+    ); // Imports247 resource
+
+    Route::group(['prefix' => 'imports247'], function () {
+
+        Route::post('process/{import247}',
+            [
+                'as' => 'api.imports247.importFile',
+                'uses'=> 'Import247Controller@process'
+            ]
+        );
+    }); // Imports247 group
 
 });

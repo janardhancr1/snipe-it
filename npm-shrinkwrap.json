@@ -1449,6 +1449,15 @@
         "multicast-dns-service-types": "^1.1.0"
       }
     },
+    "boom": {
+      "version": "5.2.0",
+      "resolved": "https://registry.npmjs.org/boom/-/boom-5.2.0.tgz",
+      "integrity": "sha512-Z5BTk6ZRe4tXXQlkqftmsAUANpXmuwlsF5Oov8ThoMbQRzdGTA1ngYRW160GexgOgjsFOKJz0LYhoNi+2AMBUw==",
+      "optional": true,
+      "requires": {
+        "hoek": "4.x.x"
+      }
+    },
     "bootstrap": {
       "version": "3.3.7",
       "resolved": "https://registry.npmjs.org/bootstrap/-/bootstrap-3.3.7.tgz",
@@ -1854,9 +1863,9 @@
       }
     },
     "cached-path-relative": {
-      "version": "1.0.1",
-      "resolved": "https://registry.npmjs.org/cached-path-relative/-/cached-path-relative-1.0.1.tgz",
-      "integrity": "sha1-0JxLUoAKpMB44t2BqGmqyQ0uVOc="
+      "version": "1.0.2",
+      "resolved": "https://registry.npmjs.org/cached-path-relative/-/cached-path-relative-1.0.2.tgz",
+      "integrity": "sha512-5r2GqsoEb4qMTTN9J+WzXfjov+hjxT+j3u5K+kIVNIwAd99DLCJE9pBIMP1qVeybV6JiijL385Oz0DcYxfbOIg=="
     },
     "camel-case": {
       "version": "3.0.0",
@@ -2573,6 +2582,15 @@
       "resolved": "https://registry.npmjs.org/crypt/-/crypt-0.0.2.tgz",
       "integrity": "sha1-iNf/fsDfuG9xPch7u0LQRNPmxBs=",
       "dev": true
+    },
+    "cryptiles": {
+      "version": "3.1.4",
+      "resolved": "https://registry.npmjs.org/cryptiles/-/cryptiles-3.1.4.tgz",
+      "integrity": "sha512-8I1sgZHfVwcSOY6mSGpVU3lw/GSIZvusg8dD2+OGehCJpOhQRLNcH0qb9upQnOH4XhgxxFJSg6E2kx95deb1Tw==",
+      "optional": true,
+      "requires": {
+        "boom": "5.x.x"
+      }
     },
     "crypto-browserify": {
       "version": "3.12.0",
@@ -4937,6 +4955,12 @@
         "minimalistic-crypto-utils": "^1.0.1"
       }
     },
+    "hoek": {
+      "version": "4.2.1",
+      "resolved": "http://registry.npmjs.org/hoek/-/hoek-4.2.1.tgz",
+      "integrity": "sha512-QLg82fGkfnJ/4iy1xZ81/9SIJiq1NGFUMGs6ParyjBZr6jW2Ufj/snDqTHixNlHdPNwN2RLVD0Pi3igeK9+JfA==",
+      "optional": true
+    },
     "home-or-tmp": {
       "version": "2.0.0",
       "resolved": "https://registry.npmjs.org/home-or-tmp/-/home-or-tmp-2.0.0.tgz",
@@ -5784,6 +5808,21 @@
       "resolved": "https://registry.npmjs.org/jquery/-/jquery-3.3.1.tgz",
       "integrity": "sha1-lYzinoHJeQ8xvneS311NlfxX+8o="
     },
+    "jquery-form-validator": {
+      "version": "2.3.79",
+      "resolved": "https://registry.npmjs.org/jquery-form-validator/-/jquery-form-validator-2.3.79.tgz",
+      "integrity": "sha512-/jG1qy7FEcGFCGlnEst5pOn1SZi3awDxRrlGDHdBEnY8Ga5zXA00OnAKIZV8fUCpUTT003BPbFBDR7hlgOsN8w==",
+      "requires": {
+        "jquery": "2.2.4"
+      },
+      "dependencies": {
+        "jquery": {
+          "version": "2.2.4",
+          "resolved": "http://registry.npmjs.org/jquery/-/jquery-2.2.4.tgz",
+          "integrity": "sha1-LInWiJterFIqfuoywUUhVZxsvwI="
+        }
+      }
+    },
     "jquery-knob": {
       "version": "1.2.11",
       "resolved": "https://registry.npmjs.org/jquery-knob/-/jquery-knob-1.2.11.tgz",
@@ -6107,26 +6146,6 @@
             "hoek": "4.x.x"
           }
         },
-        "cryptiles": {
-          "version": "3.1.2",
-          "resolved": "https://registry.npmjs.org/cryptiles/-/cryptiles-3.1.2.tgz",
-          "integrity": "sha1-qJ+7Ig9c4l7FboxKqKT9e1sNKf4=",
-          "optional": true,
-          "requires": {
-            "boom": "5.x.x"
-          },
-          "dependencies": {
-            "boom": {
-              "version": "5.2.0",
-              "resolved": "https://registry.npmjs.org/boom/-/boom-5.2.0.tgz",
-              "integrity": "sha512-Z5BTk6ZRe4tXXQlkqftmsAUANpXmuwlsF5Oov8ThoMbQRzdGTA1ngYRW160GexgOgjsFOKJz0LYhoNi+2AMBUw==",
-              "optional": true,
-              "requires": {
-                "hoek": "4.x.x"
-              }
-            }
-          }
-        },
         "form-data": {
           "version": "2.3.2",
           "resolved": "https://registry.npmjs.org/form-data/-/form-data-2.3.2.tgz",
@@ -6222,6 +6241,14 @@
             "tough-cookie": "~2.3.3",
             "tunnel-agent": "^0.6.0",
             "uuid": "^3.1.0"
+          },
+          "dependencies": {
+            "stringstream": {
+              "version": "0.0.6",
+              "resolved": "https://registry.npmjs.org/stringstream/-/stringstream-0.0.6.tgz",
+              "integrity": "sha512-87GEBAkegbBcweToUrdzf3eLhWNg06FJTebl4BVJz/JgWy8CvEr9dRtX5qWphiynMSQlxxi+QqN0z5T32SLlhA==",
+              "optional": true
+            }
           }
         },
         "sntp": {
@@ -10369,11 +10396,6 @@
       "requires": {
         "safe-buffer": "~5.1.0"
       }
-    },
-    "stringstream": {
-      "version": "0.0.5",
-      "resolved": "",
-      "optional": true
     },
     "strip-ansi": {
       "version": "3.0.1",

@@ -467,5 +467,42 @@ Route::group(['middleware' => 'web'], function () {
 
 Auth::routes();
 
-
+/*
+|--------------------------------------------------------------------------
+| 247Importer Routes
+|--------------------------------------------------------------------------
+|
+|
+|
+*/
+Route::group([ 'prefix' => 'import247', 'middleware' => ['auth']], function () {
+    Route::get('/', [
+            'as' => 'imports247.index',
+            'uses' => 'Imports247Controller@index'
+    ]);
+    Route::get('/getfile', [
+        'as' => 'imports247.getfile',
+        'uses' => 'Imports247Controller@getfile'
+    ]);
+    Route::get('/getlocationfile', [
+        'as' => 'imports247.getlocationfile',
+        'uses' => 'Imports247Controller@getlocationfile'
+    ]);
+    Route::get('/getmanufacturersfile', [
+        'as' => 'imports247.getmanufacturersfile',
+        'uses' => 'Imports247Controller@getmanufacturersfile'
+    ]);
+    Route::get('/getcategoryfile', [
+        'as' => 'imports247.getcategoryfile',
+        'uses' => 'Imports247Controller@getcategoryfile'
+    ]);
+    Route::get('/getmodelfile', [
+        'as' => 'imports247.getmodelfile',
+        'uses' => 'Imports247Controller@getmodelfile'
+    ]);
+    Route::get('/getassetfile', [
+        'as' => 'imports247.getassetfile',
+        'uses' => 'Imports247Controller@getassetfile'
+    ]);
+});
 
