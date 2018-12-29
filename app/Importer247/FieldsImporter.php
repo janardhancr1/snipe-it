@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Importer;
+namespace App\Importer247;
 
 use App\Helpers\Helper;
 use App\Models\Statuslabel;

@@ -111,6 +111,7 @@
                     update: false,
                     importTypes: [
                         { id: 'location', text: 'Locations' },
+                        { id: 'department', text: 'Departments' },
                         { id: 'manufacturer', text: 'Asset Manufacturers' },
                         { id: 'categories', text: 'Asset Categories' },
                         { id: 'assetmodel', text: 'Assets Model' },
@@ -132,6 +133,7 @@
                         {id: 'email', text: 'Email' },
                         {id: 'item_name', text: 'Item Name' },
                         {id: 'location', text: 'Location' },
+                        {id: 'department', text: 'Department' },
                         {id: 'country', text: 'Country' },
                         {id: 'maintained', text: 'Maintained' },
                         {id: 'manufacturer', text: 'Manufacturer' },
@@ -222,11 +224,10 @@
                     case 'user':
                         return this.columnOptions.general.concat(this.columnOptions.users).sort(sorter);
                     case 'location':
-                        return this.columnOptions.general.concat(this.columnOptions.general).sort(sorter);
+                    case 'department':
                     case 'manufacturer':
-                        return this.columnOptions.general.concat(this.columnOptions.general).sort(sorter);
                     case 'categories':
-                        return this.columnOptions.general.concat(this.columnOptions.general).sort(sorter);
+                        return this.columnOptions.general.sort(sorter);
                     case 'assetmodel':
                         return this.columnOptions.general.concat(this.columnOptions.assetmodel).sort(sorter);
                     case 'fields':

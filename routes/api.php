@@ -376,6 +376,20 @@ Route::group(['prefix' => 'v1','namespace' => 'Api'], function () {
         ]
     ); // Hardware resource
 
+    Route::resource('hardware247', 'Assets247Controller',
+        [
+            'names' =>
+                [
+                    'index' => 'api.assets247.index',
+                    'show' => 'api.assets247.show',
+                    'store' => 'api.assets247.store',
+                    'update' => 'api.assets247.update',
+                    'destroy' => 'api.assets247.destroy'
+                ],
+            'except' => ['create', 'edit'],
+            'parameters' => ['asset' => 'asset_id']
+        ]
+    ); // Hardware resource
 
     /*--- Imports API ---*/
 
@@ -778,4 +792,18 @@ Route::group(['prefix' => 'v1','namespace' => 'Api'], function () {
         );
     }); // Imports247 group
 
+    Route::resource('locationusers', 'LocationUsersController',
+        [
+            'names' =>
+                [
+                    'index' => 'api.locationusers.index',
+                    'show' => 'api.locationusers.show',
+                    'store' => 'api.locationusers.store',
+                    'update' => 'api.locationusers.update',
+                    'destroy' => 'api.locationusers.destroy'
+                ],
+            'except' => ['create', 'edit'],
+            'parameters' => ['location' => 'location_id']
+        ]
+    ); // Locations resource
 });

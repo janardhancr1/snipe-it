@@ -588,6 +588,14 @@
                             </li>
                         @endcan
 
+                        @can('view', \App\Models\LocationUsers::class)
+                            <li>
+                                <a href="{{ route('locationusers.index') }}" {{ (Request::is('/locationusers') ? ' class="active"' : '') }}>
+                                    {{ trans('general247.locationusers') }}
+                                </a>
+                            </li>
+                        @endcan
+
                         @can('view', \App\Models\Company::class)
                             <li>
                                 <a href="{{ route('companies.index') }}" {{ (Request::is('/companies') ? ' class="active"' : '') }}>
@@ -596,22 +604,6 @@
                             </li>
                         @endcan
 
-                        @can('view', \App\Models\Location::class)
-                            <li>
-                                <a href="{{ route('locations.index') }}" {{ (Request::is('/locations') ? ' class="active"' : '') }}>
-                                    {{ trans('general.locations') }}
-                                </a>
-                            </li>
-                        @endcan
-
-                        @can('view', \App\Models\LocationUsers::class)
-                            <li>
-                                <a href="{{ route('locationusers.index') }}" {{ (Request::is('/locationusers') ? ' class="active"' : '') }}>
-                                    {{ trans('general247.locationusers') }}
-                                </a>
-                            </li>
-                        @endcan
-                        
                         @can('view', \App\Models\Depreciation::class)
                             <li>
                                 <a href="{{ route('depreciations.index') }}" {{ (Request::is('/depreciations') ? ' class="active"' : '') }}>

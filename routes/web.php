@@ -24,6 +24,13 @@ Route::group(['middleware' => 'auth'], function () {
     ]);
 
     /*
+    * LocationUsers
+    */
+    Route::resource('locationusers', 'LocationUsersController', [
+        'parameters' => ['location' => 'location_id']
+    ]);
+
+    /*
     * Manufacturers
     */
 
@@ -487,6 +494,10 @@ Route::group([ 'prefix' => 'import247', 'middleware' => ['auth']], function () {
     Route::get('/getlocationfile', [
         'as' => 'imports247.getlocationfile',
         'uses' => 'Imports247Controller@getlocationfile'
+    ]);
+    Route::get('/getdepartmentfile', [
+        'as' => 'imports247.getdepartmentfile',
+        'uses' => 'Imports247Controller@getdepartmentfile'
     ]);
     Route::get('/getmanufacturersfile', [
         'as' => 'imports247.getmanufacturersfile',

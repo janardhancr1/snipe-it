@@ -30,6 +30,11 @@ class Imports247Controller extends Controller
         return response()->download($path);
     }
 
+    public function getdepartmentfile(){
+        $path = resource_path('/templates/department.csv');
+        return response()->download($path);
+    }
+
     public function getmanufacturersfile(){
         $path = resource_path('/templates/manufacturer.csv');
         return response()->download($path);

@@ -50,6 +50,7 @@
                         <div class="row">
                             <div class="col-md-12" style="padding-top:20px">
                                 <span>Download import template for <a href="/import247/getlocationfile">Locations</a>,&nbsp;
+                                <a href="/import247/getdepartmentfile">Departments</a>,&nbsp;
                                 <a href="/import247/getmanufacturersfile">Asset Manufacturers</a>,&nbsp;
                                 <a href="/import247/getcategoryfile">Asset Categories</a>,&nbsp;
                                 <a href="/import247/getmodelfile">Assets Model</a>,&nbsp;

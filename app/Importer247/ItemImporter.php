@@ -401,6 +401,36 @@ class ItemImporter extends Importer
     }
 
     /**
+     * Creates new department
+     *
+     * @author A. Gianotto
+     * @since 4.6.5
+     * @param $department_name string
+     * @param $location_name string
+     * @return int id of department created
+     */
+    public function createDepartment($department_name, $location_name)
+    {
+        if ($location_name!='') {
+            $location = Location::where('name', '=', $location_name)->first();
+
+            if ($location) {
+                $this->log('A matching Location ' . $location_name . ' found');
+                $department = new Department();
+                $department->name = $department_name;
+                $department->location_id = $location->id;
+    
+                if ($department->save()) {
+                    $this->log('Department ' . $department_name . ' was created');
+                    return $department->id;
+                }
+                $this->logError($department, 'Department');
+            }
+        }
+        return null;
+    }
+
+    /**
      * Fetch an existing manager
      *
      * @author A. Gianotto

@@ -5,6 +5,7 @@ namespace App\Models;
 use App\Http\Traits\UniqueUndeletedTrait;
 use App\Models\Traits\Searchable;
 use Illuminate\Database\Eloquent\Model;
+use Auth;
 use Log;
 use Watson\Validating\ValidatingTrait;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -138,5 +139,40 @@ class Department extends SnipeModel
         return $query->leftJoin('users as department_user', 'departments.manager_id', '=', 'department_user.id')->orderBy('department_user.first_name', $order)->orderBy('department_user.last_name', $order);
     }
 
+    private static function isFullMultipleCompanySupportEnabled()
+    {
+        $settings = Setting::getSettings();
+
+        // NOTE: this can happen when seeding the database
+        if (is_null($settings)) {
+            return false;
+        } else {
+            return $settings->full_multiple_companies_support == 1;
+        }
+    }
+    
+    private static function scopeDepartmentablesDirectly($query, $column = 'department_id', $table_name = null )
+    {
+        if (Auth::user()) {
+            $company_id = Auth::user()->department_id;
+        } else {
+            $company_id = null;
+        }
+
+        $table = ($table_name) ? DB::getTablePrefix().$table_name."." : '';
+        return $query->where($table.$column, '=', $company_id); 
+    }
+
+
+    public static function scopeDepartmentables($query, $column = 'department_id', $table_name = null )
+    {
+        // If not logged in and hitting this, assume we are on the command line and don't scope?'
+        if (!static::isFullMultipleCompanySupportEnabled() || (Auth::check() && Auth::user()->isSuperUser()) || (!Auth::check())) {
+            return $query;
+        } else {
+            return static::scopeDepartmentablesDirectly($query, $column, $table_name);
+        }
+    }
+    
 
 }

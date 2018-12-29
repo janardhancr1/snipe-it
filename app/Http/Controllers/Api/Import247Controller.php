@@ -147,6 +147,9 @@ class Import247Controller extends Controller
             case "location":
                 $redirectTo = "locations.index";
                 break;
+            case "department":
+                $redirectTo = "departments.index";
+                break;
             case "manufacturer":
                 $redirectTo = "manufacturers.index";
                 break;
