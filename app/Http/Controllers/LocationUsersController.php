@@ -2,11 +2,15 @@
 namespace App\Http\Controllers;
 
 
-use App\Models\Location;
+use App\Models\Location247;
+use App\Models\LocationUsers;
 use Illuminate\Support\Facades\Auth;
 use Image;
 use App\Http\Requests\ImageUploadRequest;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Input;
+use Illuminate\Support\Facades\Validator;
+use Redirect;
 
 /**
  * This controller handles all actions related to Locations for
@@ -30,7 +34,7 @@ class LocationUsersController extends Controller
     public function index()
     {
         // Grab all the locations
-        $this->authorize('view', Location::class);
+        $this->authorize('view', Location247::class);
         // Show the page
         return view('locationusers/index');
     }
@@ -47,11 +51,11 @@ class LocationUsersController extends Controller
      */
     public function create()
     {
-        $this->authorize('create', Location::class);
-        $locations = Location::orderBy('name', 'ASC')->get();
+        $this->authorize('create', Location247::class);
+        $locations = Location247::orderBy('name', 'ASC')->get();
 
-        $location_options_array = Location::getLocationHierarchy($locations);
-        $location_options = Location::flattenLocationsArray($location_options_array);
+        $location_options_array = Location247::getLocationHierarchy($locations);
+        $location_options = Location247::flattenLocationsArray($location_options_array);
         $location_options = array('' => 'Top Level') + $location_options;
 
         return view('locations/edit')
@@ -73,7 +77,7 @@ class LocationUsersController extends Controller
      */
     public function store(ImageUploadRequest $request)
     {
-        $this->authorize('create', Location::class);
+        $this->authorize('create', Location247::class);
         $location = new Location();
         $location->name             = $request->input('name');
         $location->parent_id        = $request->input('parent_id', null);
@@ -109,16 +113,16 @@ class LocationUsersController extends Controller
      */
     public function edit($locationId = null)
     {
-        $this->authorize('update', Location::class);
+        $this->authorize('update', Location247::class);
         // Check if the location exists
-        if (is_null($item = Location::find($locationId))) {
+        if (is_null($item = Location247::find($locationId))) {
             return redirect()->route('locations.index')->with('error', trans('admin/locations/message.does_not_exist'));
         }
 
         // Show the page
-        $locations = Location::orderBy('name', 'ASC')->get();
-        $location_options_array = Location::getLocationHierarchy($locations);
-        $location_options = Location::flattenLocationsArray($location_options_array);
+        $locations = Location247::orderBy('name', 'ASC')->get();
+        $location_options_array = Location247::getLocationHierarchy($locations);
+        $location_options = Location247::flattenLocationsArray($location_options_array);
         $location_options = array('' => 'Top Level') + $location_options;
 
         return view('locations/edit', compact('item'))
@@ -139,9 +143,9 @@ class LocationUsersController extends Controller
      */
     public function update(ImageUploadRequest $request, $locationId = null)
     {
-        $this->authorize('update', Location::class);
+        $this->authorize('update', Location247::class);
         // Check if the location exists
-        if (is_null($location = Location::find($locationId))) {
+        if (is_null($location = Location247::find($locationId))) {
             return redirect()->route('locations.index')->with('error', trans('admin/locations/message.does_not_exist'));
         }
 
@@ -178,8 +182,8 @@ class LocationUsersController extends Controller
      */
     public function destroy($locationId)
     {
-        $this->authorize('delete', Location::class);
-        if (is_null($location = Location::find($locationId))) {
+        $this->authorize('delete', Location247::class);
+        if (is_null($location = Location247::find($locationId))) {
             return redirect()->to(route('locations.index'))->with('error', trans('admin/locations/message.not_found'));
         }
 
@@ -220,13 +224,44 @@ class LocationUsersController extends Controller
      */
     public function show($id = null)
     {
-        $location = Location::find($id);
+        $location = Location247::find($id);
 
         if (isset($location->id)) {
-            return view('locations/view', compact('location'));
+            return view('locationusers/view', compact('location'));
         }
 
-        return redirect()->route('locations.index')->with('error', trans('admin/locations/message.does_not_exist'));
+        return redirect()->route('locationusers.index')->with('error', trans('admin/locations/message.does_not_exist'));
+    }
+
+    /**
+     * Associate the user with a location.
+     *
+     * @author [Brady Wetherington] [<uberbrady@gmail.com>]
+     * @since [v1.8]
+     * @return View
+     * @throws \Illuminate\Auth\Access\AuthorizationException
+     */
+    public function associate($id)
+    {
+
+        $set = Location247::find($id);
+
+        $this->authorize('update', $set);
+
+        foreach ($set->managers as $field) {
+            if ($field->user_id == Input::get('users')) {
+                return redirect()->route("locationusers.show", [$id])->withInput()->withErrors(['users' => trans('general247.useradded')]);
+            }
+        }
+
+        $locationUser = new LocationUsers();
+        $locationUser->location_id = $id;
+        $locationUser->user_id = Input::get('users');
+        if ($locationUser->save()) {
+            return redirect()->route("locationusers.show", [$id])->with("success", trans('general247.userassoc_success'));
+        }
+        $this->logError($locationUser, 'LocationUsers');
+        return redirect()->route("locationusers.show", [$id]);
     }
 
 }

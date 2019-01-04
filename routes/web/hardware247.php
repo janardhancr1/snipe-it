@@ -178,6 +178,11 @@ Route::group(['prefix' => 'locationusers'], function () {
         'as' => 'locationusers.selectlist',
         'uses' => 'LocationUsersController@selectlist'
     ]);
+
+    Route::post('{location}/associate',
+        ['uses' => 'LocationUsersController@associate',
+        'as' => 'locationusers.associate']
+    );
 }); // locationusers group
 
 

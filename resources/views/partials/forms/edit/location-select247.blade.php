@@ -3,20 +3,15 @@
 
     {{ Form::label($fieldname, $translated_name, array('class' => 'col-md-3 control-label')) }}
     <div class="col-md-7{{  ((isset($required) && ($required =='true'))) ?  ' required' : '' }}">
-        @if (($snipeSettings->full_multiple_companies_support=='1') && (!Auth::user()->isSuperUser()))
-            <p class="form-control-static">{{ Auth::user()->location->name }}</p>
-            <input type="hidden" name="location_id" value="{{ Auth::user()->location->id }}">
-        @else
-        <select class="js-data-ajax" data-endpoint="locations" data-placeholder="{{ trans('general.select_location') }}" name="{{ $fieldname }}" style="width: 100%" id="{{ $fieldname }}_location_select">
+        <select class="js-data-ajax" data-endpoint="locationusers" data-placeholder="{{ trans('general.select_location') }}" name="{{ $fieldname }}" style="width: 100%" id="{{ $fieldname }}_location_select">
             @if ($location_id = Input::old($fieldname, (isset($item)) ? $item->{$fieldname} : ''))
                 <option value="{{ $location_id }}" selected="selected">
-                    {{ (\App\Models\Location::find($location_id)) ? \App\Models\Location::find($location_id)->name : '' }}
+                    {{ (\App\Models\Location247::find($location_id)) ? \App\Models\Location247::find($location_id)->name : '' }}
                 </option>
             @else
                 <option value="">{{ trans('general.select_location') }}</option>
             @endif
         </select>
-        @endif
     </div>
 
     <div class="col-md-1 col-sm-1 text-left">

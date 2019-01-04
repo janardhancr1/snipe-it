@@ -58,8 +58,9 @@ class ItemImporter extends Importer
         }
 
         $item_department = $this->findCsvMatch($row, "department");
+        $this->log("Department : " . $item_department);
         if ($this->shouldUpdateField($item_department)) {
-            $this->item['department_id'] = $this->createOrFetchDepartment($item_department);
+            $this->item['department_id'] = $this->fetchDepartment($item_department);
         }
 
         $item_manager_first_name = $this->findCsvMatch($row, "manager_first_name");
@@ -377,26 +378,14 @@ class ItemImporter extends Importer
      * @param $user_department string
      * @return int id of company created/found
      */
-    public function createOrFetchDepartment($user_department_name)
+    public function fetchDepartment($user_department_name)
     {
-        if ($user_department_name!='') {
-            $department = Department::where('name', '=', $user_department_name)->first();
+        $department = Department::where(['name' => $user_department_name])->first();
 
-            if ($department) {
-                $this->log('A matching Department ' . $user_department_name . ' already exists');
-                return $department->id;
-            }
-
-            $department = new Department();
-            $department->name = $user_department_name;
-
-            if ($department->save()) {
-                $this->log('Department ' . $user_department_name . ' was created');
-                return $department->id;
-            }
-            $this->logError($department, 'Department');
+        if ($department) {
+            $this->log('A matching Department ' . $user_department_name . ' already exists');
+            return $department->id;
         }
-
         return null;
     }
 

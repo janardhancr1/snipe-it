@@ -42,7 +42,8 @@ class Asset247Presenter extends Presenter
                 "sortable" => true,
                 "title" => trans('admin/hardware/form.name'),
                 "visible" => true,
-                "formatter" => "hardware247LinkFormatter"
+                "formatter" => "hardware247LinkFormatter",
+                "filterControl" => 'input'
             ], [
                 "field" => "image",
                 "searchable" => false,
@@ -50,157 +51,180 @@ class Asset247Presenter extends Presenter
                 "switchable" => true,
                 "title" => trans('admin/hardware/table.image'),
                 "visible" => true,
-                "formatter" => "imageFormatter"
+                "formatter" => "imageFormatter",
+                "filterControl" => 'input'
             ], [
                 "field" => "asset_tag",
                 "searchable" => true,
                 "sortable" => true,
                 "title" => trans('admin/hardware/table.asset_tag'),
                 "visible" => true,
-                "formatter" => "hardware247LinkFormatter"
+                "formatter" => "hardware247LinkFormatter",
+                "filterControl" => 'input'
             ], [
                 "field" => "serial",
                 "searchable" => true,
                 "sortable" => true,
                 "title" => trans('admin/hardware/form.serial'),
                 "visible" => true,
-                "formatter" => "hardware247LinkFormatter"
+                "formatter" => "hardware247LinkFormatter",
+                "filterControl" => 'input'
             ],  [
                 "field" => "model",
                 "searchable" => true,
                 "sortable" => true,
                 "title" => trans('admin/hardware/form.model'),
                 "visible" => true,
-                "formatter" => "modelsLinkObjFormatter"
+                "formatter" => "modelsLinkObjFormatter",
+                "filterControl" => 'select'
             ], [
                 "field" => "model_number",
                 "searchable" => true,
                 "sortable" => true,
                 "title" => trans('admin/models/table.modelnumber'),
-                "visible" => false
+                "visible" => false,
+                "filterControl" => 'input'
             ], [
                 "field" => "category",
                 "searchable" => true,
                 "sortable" => true,
                 "title" => trans('general.category'),
                 "visible" => true,
-                "formatter" => "categoriesLinkObjFormatter"
+                "formatter" => "categoriesLinkObjFormatter",
+                "filterControl" => 'select'
             ], [
                 "field" => "status_label",
                 "searchable" => true,
                 "sortable" => true,
                 "title" => trans('admin/hardware/table.status'),
                 "visible" => true,
-                "formatter" => "statuslabelsLinkObjFormatter"
+                "formatter" => "statuslabelsLinkObjFormatter",
+                "filterControl" => 'select'
             ], [
                 "field" => "assigned_to",
                 "searchable" => true,
                 "sortable" => true,
                 "title" => trans('admin/hardware/form.checkedout_to'),
                 "visible" => true,
-                "formatter" => "polymorphicItemFormatter"
+                "formatter" => "polymorphicItemFormatter",
+                "filterControl" => 'select'
             ], [
                 "field" => "employee_number",
                 "searchable" => false,
                 "sortable" => false,
                 "title" => trans('admin/users/table.employee_num'),
                 "visible" => false,
-                "formatter" => "employeeNumFormatter"
+                "formatter" => "employeeNumFormatter",
+                "filterControl" => 'select'
             ],[
                 "field" => "location",
                 "searchable" => true,
                 "sortable" => true,
                 "title" => trans('admin/hardware/table.location'),
                 "visible" => true,
-                "formatter" => "deployedLocationFormatter"
+                "formatter" => "deployedLocationFormatter",
+                "filterControl" => 'select'
             ], [
                 "field" => "rtd_location",
                 "searchable" => true,
                 "sortable" => true,
                 "title" => trans('admin/hardware/form.default_location'),
                 "visible" => false,
-                "formatter" => "deployedLocationFormatter"
+                "formatter" => "deployedLocationFormatter",
+                "filterControl" => 'select'
             ], [
                 "field" => "manufacturer",
                 "searchable" => true,
                 "sortable" => true,
                 "title" => trans('general.manufacturer'),
                 "visible" => false,
-                "formatter" => "manufacturersLinkObjFormatter"
+                "formatter" => "manufacturersLinkObjFormatter",
+                "filterControl" => 'select'
             ],[
                 "field" => "supplier",
                 "searchable" => true,
                 "sortable" => true,
                 "title" => trans('general.supplier'),
                 "visible" => false,
-                "formatter" => "suppliersLinkObjFormatter"
+                "formatter" => "suppliersLinkObjFormatter",
+                "filterControl" => 'input'
             ], [
                 "field" => "purchase_date",
                 "searchable" => true,
                 "sortable" => true,
                 "visible" => false,
                 "title" => trans('general.purchase_date'),
-                "formatter" => "dateDisplayFormatter"
+                "formatter" => "dateDisplayFormatter",
+                "filterControl" => 'datepicker'
             ], [
                 "field" => "purchase_cost",
                 "searchable" => true,
                 "sortable" => true,
                 "title" => trans('general.purchase_cost'),
                 "footerFormatter" => 'sumFormatter',
+                "filterControl" => 'input'
             ], [
                 "field" => "order_number",
                 "searchable" => true,
                 "sortable" => true,
                 "visible" => false,
                 "title" => trans('general.order_number'),
-                'formatter' => "orderNumberObjFilterFormatter"
+                'formatter' => "orderNumberObjFilterFormatter",
+                "filterControl" => 'input'
             ], [
                 "field" => "eol",
                 "searchable" => false,
                 "sortable" => false,
                 "visible" => false,
                 "title" => trans('general.eol'),
-                "formatter" => "dateDisplayFormatter"
+                "formatter" => "dateDisplayFormatter",
+                "filterControl" => 'input'
             ], [
                 "field" => "warranty_months",
                 "searchable" => true,
                 "sortable" => true,
                 "visible" => false,
-                "title" => trans('admin/hardware/form.warranty')
+                "title" => trans('admin/hardware/form.warranty'),
+                "filterControl" => 'input'
             ],[
                 "field" => "warranty_expires",
                 "searchable" => false,
                 "sortable" => false,
                 "visible" => false,
                 "title" => trans('admin/hardware/form.warranty_expires'),
-                "formatter" => "dateDisplayFormatter"
+                "formatter" => "dateDisplayFormatter",
+                "filterControl" => 'input'
             ],[
                 "field" => "notes",
                 "searchable" => true,
                 "sortable" => true,
                 "visible" => false,
                 "title" => trans('general.notes'),
+                "filterControl" => 'input'
 
             ], [
                 "field" => "checkout_counter",
                 "searchable" => false,
                 "sortable" => true,
                 "visible" => false,
-                "title" => trans('general.checkouts_count')
+                "title" => trans('general.checkouts_count'),
+                "filterControl" => 'input'
 
             ],[
                 "field" => "checkin_counter",
                 "searchable" => false,
                 "sortable" => true,
                 "visible" => false,
-                "title" => trans('general.checkins_count')
+                "title" => trans('general.checkins_count'),
+                "filterControl" => 'input'
 
             ], [
                 "field" => "requests_counter",
                 "searchable" => false,
                 "sortable" => true,
                 "visible" => false,
-                "title" => trans('general.user_requests_count')
+                "title" => trans('general.user_requests_count'),
+                "filterControl" => 'input'
 
             ], [
                 "field" => "created_at",
@@ -208,21 +232,24 @@ class Asset247Presenter extends Presenter
                 "sortable" => true,
                 "visible" => false,
                 "title" => trans('general.created_at'),
-                "formatter" => "dateDisplayFormatter"
+                "formatter" => "dateDisplayFormatter",
+                "filterControl" => 'datepicker'
             ], [
                 "field" => "updated_at",
                 "searchable" => false,
                 "sortable" => true,
                 "visible" => false,
                 "title" => trans('general.updated_at'),
-                "formatter" => "dateDisplayFormatter"
+                "formatter" => "dateDisplayFormatter",
+                "filterControl" => 'datepicker'
             ], [
                 "field" => "last_checkout",
                 "searchable" => false,
                 "sortable" => true,
                 "visible" => false,
                 "title" => trans('admin/hardware/table.checkout_date'),
-                "formatter" => "dateDisplayFormatter"
+                "formatter" => "dateDisplayFormatter",
+                "filterControl" => 'select'
             ], [
                 "field" => "expected_checkin",
                 "searchable" => false,
@@ -278,6 +305,7 @@ class Asset247Presenter extends Presenter
             "title" => trans('general.checkin').'/'.trans('general.checkout'),
             "visible" => true,
             "formatter" => "hardwareInOutFormatter",
+            "filterControl" => 'select'
         ];
 
         $layout[] = [

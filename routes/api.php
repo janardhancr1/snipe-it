@@ -806,4 +806,14 @@ Route::group(['prefix' => 'v1','namespace' => 'Api'], function () {
             'parameters' => ['location' => 'location_id']
         ]
     ); // Locations resource
+
+    Route::group(['prefix' => 'locationusers'], function () {
+
+        Route::get('users/{location_userid}',
+            [
+                'as' => 'api.locationusers.users',
+                'uses'=> 'LocationUsersController@users'
+            ]
+        );
+    }); // Imports247 group
 });

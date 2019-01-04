@@ -4,6 +4,7 @@
 
 @push('js')
 <script src="{{ mix('js/dist/bootstrap-table.js') }}"></script>
+<script src="{{ mix('js/dist/bootstrap-table-filter-control.js') }}"></script>
 
 @if (!isset($simple_view))
 <script src="{{ mix('js/dist/bootstrap-table-simple-view.js') }}"></script>
@@ -34,6 +35,7 @@
             undefinedText: '',
             iconsPrefix: 'fa',
             cookie: true,
+            filterControl: true,
             cookieExpire: '2y',
             cookieIdTable: '{{ Route::currentRouteName() }}',
             mobileResponsive: true,
@@ -312,6 +314,7 @@
         'consumables',
         'components',
         'locations',
+        'locationusers',
         'users',
         'manufacturers',
         'maintenances',

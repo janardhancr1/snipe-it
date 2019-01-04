@@ -6,9 +6,11 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Helpers\Helper;
 use App\Models\Location;
+use App\Models\LocationUsers;
 use App\Http\Transformers\LocationsTransformer;
 use App\Http\Transformers\SelectlistTransformer;
 use Illuminate\Support\Facades\Storage;
+use Auth;
 
 class LocationsController extends Controller
 {
@@ -195,6 +197,11 @@ class LocationsController extends Controller
 
         if ($request->filled('search')) {
             $locations = $locations->where('locations.name', 'LIKE', '%'.$request->get('search').'%');
+        }
+
+        if(!Auth::user()->isSuperUser())
+        {
+            $locations = LocationUsers::scopeUserLocations($locations, Auth::user()->id);
         }
 
         $locations = $locations->orderBy('name', 'ASC')->paginate(50);

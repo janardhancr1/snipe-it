@@ -14,5 +14,21 @@ use DB;
 
 class LocationUsers extends SnipeModel
 {
+    protected $table = 'location_users';
+
+    public function users()
+    {
+        return $this->hasMany('\App\Models\User', 'user_id');
+    }
+
+    public function locations()
+    {
+        return $this->hasMany('\App\Models\Location', 'location_id');
+    }
+
+    public static function scopeUserLocations($query, $userid){
+        return $query->join('location_users', 'location_users.location_id', '=', 'locations.id')
+        ->where("location_users.user_id",  $userid);
+    }
     
 }

@@ -7,6 +7,7 @@ use App\Models\Asset;
 use App\Models\Category;
 use App\Models\Manufacturer;
 use App\Models\Statuslabel;
+use League\Csv\Writer;
 
 class AssetImporter extends ItemImporter
 {
@@ -22,23 +23,42 @@ class AssetImporter extends ItemImporter
     {
         // ItemImporter handles the general fetching.
         parent::handle($row);
+        $createAsset = true;
 
+        $filename = config('app.private_uploads') . '/imports/importerror.csv';
+        $writer = Writer::createFromPath($filename, 'a');
+        $row["Errors"] = "Invalid data for these master : ";
         if ($this->customFields) {
-
             foreach ($this->customFields as $customField) {
                 $customFieldValue = $this->array_smart_custom_field_fetch($row, $customField);
-                if ($customFieldValue) {
+                if (strlen($customFieldValue) > 0) {
                     $this->item['custom_fields'][$customField->db_column_name()] = $customFieldValue;
-                    $this->log('Custom Field '. $customField->name.': '.$customFieldValue);
+                    $this->log('Custom Field '. $customField->name .': '.$customFieldValue);
+                    if($customField->element == 'listbox'){
+                        $values = $customField->formatFieldValuesAsArray();
+                        if(!in_array(strtolower(trim($customFieldValue)), array_map('strtolower', $values))) {
+                            $this->log('Custom Field ' . $customField->name . ' value not found in msater data.');
+                            $row["Errors"] .= $customField->name . ", ";
+                            $createAsset = false;
+                        }
+                    }
                 } else {
                     // Clear out previous data.
-                    $this->item['custom_fields'][$customField->db_column_name()] = null;
+                    //$this->item['custom_fields'][$customField->db_column_name()] = null;
+                    // Data not found in the custom fields master log and throws error
+                    $this->log('Custom Field ' . $customField->name . ' value not found.');
+                    $createAsset = false;
                 }
             }
         }
-
-
-        $this->createAssetIfNotExists($row);
+        $row["Errors"] = rtrim($row["Errors"], ", ");
+        if($createAsset) {
+            $this->createAssetIfNotExists($row);
+        } else {
+            $writer->insertOne($row);
+            //$asset = new Asset;
+            //$this->logError($asset,  'Asset "' . $this->item['name'].'"');
+        }
     }
 
     /**
@@ -65,11 +85,12 @@ class AssetImporter extends ItemImporter
         } else {
             $this->log("No Matching Asset, Creating a new one");
             $asset = new Asset;
+            $asset_tag = Asset::autoincrement_asset();
         }
 
         $this->item['image'] = $this->findCsvMatch($row, "image");
         $this->item['warranty_months'] = intval($this->findCsvMatch($row, "warranty_months"));
-        $this->item['model_id'] = $this->createOrFetchAssetModel($row);
+        $this->item['model_id'] = $this->fetchAssetModel($row);
 
         // If no status ID is found
         if (!array_key_exists('status_id', $this->item) && !$editingAsset) {
@@ -111,6 +132,10 @@ class AssetImporter extends ItemImporter
         if ($asset->save()) {
             $asset->logCreate('Imported using csv importer');
             $this->log('Asset ' . $this->item["name"] . ' with serial number ' . $this->item['serial'] . ' was created');
+
+            $settings = \App\Models\Setting::getSettings();
+            $settings->next_auto_tag_base ++;
+            $settings->save();
 
             // If we have a target to checkout to, lets do so.
             if(isset($target)) {
