@@ -54,7 +54,9 @@
                                 <a href="/import247/getmanufacturersfile">Asset Manufacturers</a>,&nbsp;
                                 <a href="/import247/getcategoryfile">Asset Categories</a>,&nbsp;
                                 <a href="/import247/getmodelfile">Assets Model</a>,&nbsp;
-                                <a href="/import247/getassetfile">Assets</a></span>
+                                <a href="/import247/getassetfile">Assets</a>,&nbsp;
+                                <a href="/import247/getcustomfile">Custom Template</a></span>
+
                             </div>
                         </div>
                         <div class="row">

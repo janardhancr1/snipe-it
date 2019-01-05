@@ -34,7 +34,7 @@
         selectControl = $(selectControl.get(selectControl.length - 1));
         if (!existOptionInSelectControl(selectControl, value)) {
             selectControl.append($("<option></option>")
-                .attr("value", value)
+                .attr("value", value.name)
                 .text($('<div />').html(text).text()));
         }
     };

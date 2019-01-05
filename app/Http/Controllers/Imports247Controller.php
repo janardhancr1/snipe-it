@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Http\Transformers\ImportsTransformer;
 use App\Models\Import;
 use App\Models\Asset;
+use App\Models\CustomFieldset;
+use App\Models\CustomField;
 
 
 class Imports247Controller extends Controller
@@ -53,5 +55,38 @@ class Imports247Controller extends Controller
     public function getassetfile(){
         $path = resource_path('/templates/assetdata.csv');
         return response()->download($path);
+    }
+
+    public function getcustomfile(){
+        //print_r($_REQUEST);
+        if(isset($_REQUEST["filedsets"]) && count($_REQUEST["filedsets"]) > 0)
+        {
+            $fields = array();
+            foreach($_REQUEST["filedsets"] as $setId){
+                $customFields = CustomFieldset::with('fields')
+                        ->where('id', '=', $setId)->first();
+                if ($customFields) {
+                    foreach ($customFields->fields as $customField) {
+                        $field =  CustomField::find($customField->id);
+                        if($field){
+                            if(!in_array($field->name, $fields)){
+                                array_push($fields, $field->name);
+                            }
+                        }
+                    }
+                }
+            }
+            //print_r($fields);
+            $fieldsString = "";
+            foreach($fields as $field){
+                $fieldsString .= $field . ",";
+            }
+            rtrim($fieldsString, ",");
+            $path = resource_path('/templates/customtemplate.csv');
+            \file_put_contents(resource_path('/templates/template.csv'), file_get_contents($path) . "," . $fieldsString);
+            return response()->download(resource_path('/templates/template.csv'));
+        }
+        $fieldsets = CustomFieldset::with("fields", "models")->get();
+        return view('importer247/template')->with("custom_fieldsets", $fieldsets);
     }
 }

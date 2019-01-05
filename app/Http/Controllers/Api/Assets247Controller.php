@@ -13,6 +13,7 @@ use App\Models\CustomField;
 use App\Models\Location;
 use App\Models\Setting;
 use App\Models\User;
+use App\Models\LocationUsers;
 use Artisan;
 use Auth;
 use Carbon\Carbon;
@@ -93,9 +94,17 @@ class Assets247Controller extends Controller
             $allowed_columns[]=$field->db_column_name();
         }
 
-        $assets = Department::scopeDepartmentables(Company::scopeCompanyables(Asset::select('assets.*'),"company_id","assets")
+        if(!Auth::user()->isSuperUser())
+        {
+            $assets = LocationUsers::scopeUserAssets(Department::scopeDepartmentables(Company::scopeCompanyables(Asset::select('assets.*'),"company_id","assets")
+            ->with('location', 'assetstatus', 'assetlog', 'company', 'defaultLoc','assignedTo',
+            'model.category', 'model.manufacturer', 'model.fieldset','supplier')), Auth::user()->id);
+        } else {
+            $assets = Department::scopeDepartmentables(Company::scopeCompanyables(Asset::select('assets.*'),"company_id","assets")
             ->with('location', 'assetstatus', 'assetlog', 'company', 'defaultLoc','assignedTo',
             'model.category', 'model.manufacturer', 'model.fieldset','supplier'));
+        }
+        
 
 
         // These are used by the API to query against specific ID numbers.

@@ -7,4 +7,5 @@
         'adduser'            => 'Add Manager',
         'useradded'          => 'User is already associated',
         'userassoc_success'  => 'Used added to location',
+        'template'           => 'Download Template',
     ];

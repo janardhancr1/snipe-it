@@ -76,7 +76,7 @@ class Asset247Presenter extends Presenter
                 "title" => trans('admin/hardware/form.model'),
                 "visible" => true,
                 "formatter" => "modelsLinkObjFormatter",
-                "filterControl" => 'select'
+                "filterControl" => 'input'
             ], [
                 "field" => "model_number",
                 "searchable" => true,
@@ -91,7 +91,7 @@ class Asset247Presenter extends Presenter
                 "title" => trans('general.category'),
                 "visible" => true,
                 "formatter" => "categoriesLinkObjFormatter",
-                "filterControl" => 'select'
+                "filterControl" => 'input'
             ], [
                 "field" => "status_label",
                 "searchable" => true,
@@ -99,7 +99,7 @@ class Asset247Presenter extends Presenter
                 "title" => trans('admin/hardware/table.status'),
                 "visible" => true,
                 "formatter" => "statuslabelsLinkObjFormatter",
-                "filterControl" => 'select'
+                "filterControl" => 'input'
             ], [
                 "field" => "assigned_to",
                 "searchable" => true,
@@ -107,7 +107,7 @@ class Asset247Presenter extends Presenter
                 "title" => trans('admin/hardware/form.checkedout_to'),
                 "visible" => true,
                 "formatter" => "polymorphicItemFormatter",
-                "filterControl" => 'select'
+                "filterControl" => 'input'
             ], [
                 "field" => "employee_number",
                 "searchable" => false,
@@ -115,7 +115,7 @@ class Asset247Presenter extends Presenter
                 "title" => trans('admin/users/table.employee_num'),
                 "visible" => false,
                 "formatter" => "employeeNumFormatter",
-                "filterControl" => 'select'
+                "filterControl" => 'input'
             ],[
                 "field" => "location",
                 "searchable" => true,
@@ -123,7 +123,7 @@ class Asset247Presenter extends Presenter
                 "title" => trans('admin/hardware/table.location'),
                 "visible" => true,
                 "formatter" => "deployedLocationFormatter",
-                "filterControl" => 'select'
+                "filterControl" => 'input'
             ], [
                 "field" => "rtd_location",
                 "searchable" => true,
@@ -131,7 +131,7 @@ class Asset247Presenter extends Presenter
                 "title" => trans('admin/hardware/form.default_location'),
                 "visible" => false,
                 "formatter" => "deployedLocationFormatter",
-                "filterControl" => 'select'
+                "filterControl" => 'input'
             ], [
                 "field" => "manufacturer",
                 "searchable" => true,
@@ -139,7 +139,7 @@ class Asset247Presenter extends Presenter
                 "title" => trans('general.manufacturer'),
                 "visible" => false,
                 "formatter" => "manufacturersLinkObjFormatter",
-                "filterControl" => 'select'
+                "filterControl" => 'input'
             ],[
                 "field" => "supplier",
                 "searchable" => true,
@@ -249,7 +249,7 @@ class Asset247Presenter extends Presenter
                 "visible" => false,
                 "title" => trans('admin/hardware/table.checkout_date'),
                 "formatter" => "dateDisplayFormatter",
-                "filterControl" => 'select'
+                "filterControl" => 'input'
             ], [
                 "field" => "expected_checkin",
                 "searchable" => false,
@@ -292,7 +292,8 @@ class Asset247Presenter extends Presenter
                 "sortable" => true,
                 "switchable" => true,
                 "title" => ($field->field_encrypted=='1') ?'<i class="fa fa-lock"></i> '.e($field->name) : e($field->name),
-                "formatter" => "customFieldsFormatter"
+                "formatter" => "customFieldsFormatter",
+                "filterControl" => 'input'
             ];
 
         }
@@ -305,7 +306,7 @@ class Asset247Presenter extends Presenter
             "title" => trans('general.checkin').'/'.trans('general.checkout'),
             "visible" => true,
             "formatter" => "hardwareInOutFormatter",
-            "filterControl" => 'select'
+            "filterControl" => 'input'
         ];
 
         $layout[] = [

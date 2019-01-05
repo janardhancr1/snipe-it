@@ -36,6 +36,7 @@
             iconsPrefix: 'fa',
             cookie: true,
             filterControl: true,
+            searchOnEnterKey: true,
             cookieExpire: '2y',
             cookieIdTable: '{{ Route::currentRouteName() }}',
             mobileResponsive: true,
@@ -72,6 +73,17 @@
         }
         return {};
     }
+
+    $(function () {
+        $('#bt247SelectAll').click(function () {
+            $('.bt247SelectItem').not(this).prop('checked', this.checked);
+        });
+
+        $('.bt247SelectItem').click(function (){
+            $('.bt247SelectAll').not(this).prop('checked', false);
+        })
+
+    });
 
     // Handle whether or not the edit button should be disabled
     $('.snipe-table').on('check.bs.table', function () {

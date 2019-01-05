@@ -11,5 +11,6 @@
     "/js/vendor.js": "/js/vendor.js?id=1ac29ecd20d84e13bea4",
     "/js/dist/bootstrap-table.js": "/js/dist/bootstrap-table.js?id=7223478ba9bf2c6dfb4f",
     "/js/dist/bootstrap-table-simple-view.js": "/js/dist/bootstrap-table-simple-view.js?id=3926b8f4aaad6ca20d31",
+    "/js/dist/bootstrap-table-filter-control.js": "/js/dist/bootstrap-table-filter-control.js?id=3926b8f4aaad6ca20d32",
     "/css/dist/bootstrap-table.css": "/css/dist/bootstrap-table.css?id=8340c60bfbc12c34d2e6"
 }

@@ -30,5 +30,10 @@ class LocationUsers extends SnipeModel
         return $query->join('location_users', 'location_users.location_id', '=', 'locations.id')
         ->where("location_users.user_id",  $userid);
     }
+
+    public static function scopeUserAssets($query, $userid){
+        return $query->join('location_users', 'location_users.location_id', '=', 'assets.location_id')
+        ->where("location_users.user_id",  $userid);
+    }
     
 }
