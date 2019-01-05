@@ -56,7 +56,7 @@ class CustomFieldsetsController extends Controller
                 }
 
             }
-            print_r($custom_fields_list);
+            
             return view("custom_fields.fieldsets.view")
                 ->with("custom_fieldset", $cfset)
                 ->with("maxid", $maxid+1)
