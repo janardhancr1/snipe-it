@@ -58,7 +58,8 @@
                 paginationSwitchUp: 'fa-caret-square-o-up',
                 columns: 'fa-columns',
                 refresh: 'fa-refresh',
-                export: 'fa-download'
+                export: 'fa-download',
+                clear: 'fa-trash'
             },
             exportTypes: ['csv', 'excel', 'doc', 'txt','json', 'xml', 'pdf'],
             onLoadSuccess: function () {
