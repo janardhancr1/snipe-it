@@ -1,7 +1,7 @@
 <?php
 namespace App\Providers;
 
-
+use Illuminate\Routing\UrlGenerator;
 use Illuminate\Support\ServiceProvider;
 use Log;
 use Illuminate\Support\Facades\Schema;
@@ -33,8 +33,12 @@ class AppServiceProvider extends ServiceProvider
      * @since [v3.0]
      * @return void
      */
-    public function boot()
+    public function boot(UrlGenerator $url)
     {
+        if(env('REDIRECT_HTTPS'))
+        {
+            $url->forceSchema('https');
+        }
         Schema::defaultStringLength(191);
         Asset::observe(AssetObserver::class);
         Accessory::observe(AccessoryObserver::class);
