@@ -174,10 +174,10 @@ Route::group(['prefix' => 'locationusers'], function () {
         ]
     );
 
-    Route::get( 'selectlist',  [
-        'as' => 'locationusers.selectlist',
-        'uses' => 'LocationUsersController@selectlist'
-    ]);
+    // Route::get( 'selectlist',  [
+    //     'as' => 'locationusers.selectlist',
+    //     'uses' => 'LocationUsersController@selectlist'
+    // ]);
 
     Route::post('{location}/associate',
         ['uses' => 'LocationUsersController@associate',
@@ -187,17 +187,17 @@ Route::group(['prefix' => 'locationusers'], function () {
 
 
 
-Route::resource('locationusers', 'LocationUsersController',
-    [
-        'names' =>
-            [
-                'index' => 'api.locationusers.index',
-                'show' => 'api.locationusers.show',
-                'store' => 'api.locationusers.store',
-                'update' => 'api.locationusers.update',
-                'destroy' => 'api.locationusers.destroy'
-            ],
-        'except' => ['create', 'edit'],
-        'parameters' => ['location' => 'location_id']
-    ]
-); // locationusers resource
+// Route::resource('locationusers', 'LocationUsersController',
+//     [
+//         'names' =>
+//             [
+//                 'index' => 'api.locationusers.index',
+//                 'show' => 'api.locationusers.show',
+//                 'store' => 'api.locationusers.store',
+//                 'update' => 'api.locationusers.update',
+//                 'destroy' => 'api.locationusers.destroy'
+//             ],
+//         'except' => ['create', 'edit'],
+//         'parameters' => ['location' => 'location_id']
+//     ]
+// ); // locationusers resource

@@ -792,6 +792,21 @@ Route::group(['prefix' => 'v1','namespace' => 'Api'], function () {
         );
     }); // Imports247 group
 
+    Route::group(['prefix' => 'locationusers'], function () {
+
+        Route::get('users/{location_userid}',
+            [
+                'as' => 'api.locationusers.users',
+                'uses'=> 'LocationUsersController@users'
+            ]
+        );
+
+        Route::get( 'selectlist',  [
+            'as' => 'locationusers.selectlist',
+            'uses' => 'LocationUsersController@selectlist'
+        ]);
+    }); // locations users group
+    
     Route::resource('locationusers', 'LocationUsersController',
         [
             'names' =>
@@ -806,14 +821,4 @@ Route::group(['prefix' => 'v1','namespace' => 'Api'], function () {
             'parameters' => ['location' => 'location_id']
         ]
     ); // Locations resource
-
-    Route::group(['prefix' => 'locationusers'], function () {
-
-        Route::get('users/{location_userid}',
-            [
-                'as' => 'api.locationusers.users',
-                'uses'=> 'LocationUsersController@users'
-            ]
-        );
-    }); // Imports247 group
 });
