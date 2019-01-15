@@ -269,7 +269,7 @@ class LocationUsersController extends Controller
 
 
         if ($locationid) {
-            $users = $users->join('location_users as lc', 'lc.location_id', '=', 'users.location_id')
+            $users = $users->join('location_users as lc', 'lc.user_id', '=', 'users.id')
                     ->where('users.location_id', '=', $locationid);
         }
 
