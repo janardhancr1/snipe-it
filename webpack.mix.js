@@ -110,7 +110,8 @@ mix
   .combine(
     [
       "node_modules/bootstrap-table/dist/extensions/sticky-header/bootstrap-table-sticky-header.js",
-      "node_modules/bootstrap-table/dist/extensions/toolbar/bootstrap-table-toolbar.js"
+      "node_modules/bootstrap-table/dist/extensions/toolbar/bootstrap-table-toolbar.js",
+      "node_modules/bootstrap-table/dist/extensions/filter-control/bootstrap-table-filter-control.js"
     ],
     "public/js/dist/bootstrap-table-simple-view.js"
   )
@@ -122,7 +123,8 @@ mix
   .combine(
     [
       "node_modules/bootstrap-table/dist/bootstrap-table.css",
-      "node_modules/bootstrap-table/dist/extensions/sticky-header/bootstrap-table-sticky-header.css"
+      "node_modules/bootstrap-table/dist/extensions/sticky-header/bootstrap-table-sticky-header.css",
+      "node_modules/bootstrap-table/dist/extensions/filter-control/bootstrap-table-filter-control.css"
     ],
     "public/css/dist/bootstrap-table.css"
   )

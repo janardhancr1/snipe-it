@@ -1,8 +1,8 @@
 {
-    "/js/app.js": "/js/app.js?id=ca5d2c0d3808793fd331",
+    "/js/app.js": "/js/app.js?id=f02c287cf35b88a779f8",
     "/css/build/AdminLTE.css": "/css/build/AdminLTE.css?id=f7a5d783fef321018f4c",
     "/css/build/app.css": "/css/build/app.css?id=0dfc05b0fe1dcc9b6e3d",
-    "/css/all.css": "/css/all.css?id=9399418f7ce5805e3571",
+    "/css/all.css": "/css/all.css?id=d2efb737d18b816c8519",
     "/css/blue.png": "/css/blue.png?id=e83a6c29e04fe851f212",
     "/css/blue@2x.png": "/css/blue@2x.png?id=b63f16a5d07ba21aeae9",
     "/css/skins/skin-green-dark.min.css": "/css/skins/skin-green-dark.min.css?id=1039ae0e198a7f3d8da7",
@@ -10,9 +10,8 @@
     "/css/skins/skin-red-dark.min.css": "/css/skins/skin-red-dark.min.css?id=99f90bbd653d7db10795",
     "/css/signature-pad.css": "/css/signature-pad.css?id=6a89d3cd901305e66ced",
     "/css/signature-pad.min.css": "/css/signature-pad.min.css?id=6a89d3cd901305e66ced",
-    "/js/vendor.js": "/js/vendor.js?id=1ac29ecd20d84e13bea4",
-    "/js/dist/bootstrap-table.js": "/js/dist/bootstrap-table.js?id=7223478ba9bf2c6dfb4f",
-    "/js/dist/bootstrap-table-simple-view.js": "/js/dist/bootstrap-table-simple-view.js?id=3926b8f4aaad6ca20d31",
-    "/js/dist/bootstrap-table-filter-control.js": "/js/dist/bootstrap-table-filter-control.js?id=3926b8f4aaad6ca20d32",
-    "/css/dist/bootstrap-table.css": "/css/dist/bootstrap-table.css?id=8340c60bfbc12c34d2e6"
+    "/js/vendor.js": "/js/vendor.js?id=8bf903b80600aa42a9cb",
+    "/js/dist/bootstrap-table.js": "/js/dist/bootstrap-table.js?id=e71ef0d838f550998ecb",
+    "/js/dist/bootstrap-table-simple-view.js": "/js/dist/bootstrap-table-simple-view.js?id=852115c61bd6cfb06bf1",
+    "/css/dist/bootstrap-table.css": "/css/dist/bootstrap-table.css?id=d52513fed07b6fadce77"
 }
