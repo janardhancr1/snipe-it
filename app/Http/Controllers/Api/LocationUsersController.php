@@ -270,9 +270,9 @@ class LocationUsersController extends Controller
 
         if ($locationid) {
             $users = $users->join('location_users as lc', 'lc.user_id', '=', 'users.id')
-                    ->where('users.location_id', '=', $locationid);
+                    ->where('lc.location_id', '=', $locationid);
         }
-
+        
         if ($request->filled('search')) {
             $users = $users->TextSearch($request->input('search'));
         }
