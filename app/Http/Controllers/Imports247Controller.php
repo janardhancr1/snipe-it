@@ -79,7 +79,7 @@ class Imports247Controller extends Controller
             //print_r($fields);
             $fieldsString = "";
             foreach($fields as $field){
-                $fieldsString .= $field . ",";
+                $fieldsString .= '"' . $field . '",';
             }
             rtrim($fieldsString, ",");
             $path = resource_path('/templates/customtemplate.csv');
