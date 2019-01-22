@@ -440,7 +440,7 @@ Route::get(
     [
     'as' => 'home',
     'middleware' => ['auth'],
-    'uses' => 'DashboardController@getIndex' ]
+    'uses' => 'DashboardController@getIndex247' ]
 );
 
 

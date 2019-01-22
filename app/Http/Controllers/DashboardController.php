@@ -8,6 +8,8 @@ use Auth;
 use Redirect;
 use App\Models\Asset;
 use App\Models\Company;
+use App\Models\LocationUsers;
+use App\Models\Department;
 
 /**
  * This controller handles all actions related to the Admin Dashboard
@@ -33,6 +35,42 @@ class DashboardController extends Controller
             $asset_stats=null;
 
             $counts['asset'] = \App\Models\Asset::count();
+            $counts['accessory'] = \App\Models\Accessory::count();
+            $counts['license'] = \App\Models\License::assetcount();
+            $counts['consumable'] = \App\Models\Consumable::count();
+            $counts['grand_total'] =  $counts['asset'] +  $counts['accessory'] +  $counts['license'] +  $counts['consumable'];
+
+            if ((!file_exists(storage_path().'/oauth-private.key')) || (!file_exists(storage_path().'/oauth-public.key'))) {
+                \Artisan::call('migrate', ['--force' => true]);
+                \Artisan::call('passport:install');
+            }
+
+            return view('dashboard')->with('asset_stats', $asset_stats)->with('counts', $counts);
+        } else {
+        // Redirect to the profile page
+            return redirect()->intended('account/view-assets');
+        }
+    }
+
+    public function getIndex247()
+    {
+        // Show the page
+        if (Auth::user()->hasAccess('admin')) {
+
+            $asset_stats=null;
+
+            if(!Auth::user()->isSuperUser())
+            {
+                $assets = LocationUsers::scopeUserAssets(Department::scopeDepartmentables(Company::scopeCompanyables(Asset::select('assets.*'),"company_id","assets")
+                ->with('location', 'assetstatus', 'assetlog', 'company', 'defaultLoc','assignedTo',
+                'model.category', 'model.manufacturer', 'model.fieldset','supplier')), Auth::user()->id);
+            } else {
+                $assets = Department::scopeDepartmentables(Company::scopeCompanyables(Asset::select('assets.*'),"company_id","assets")
+                ->with('location', 'assetstatus', 'assetlog', 'company', 'defaultLoc','assignedTo',
+                'model.category', 'model.manufacturer', 'model.fieldset','supplier'));
+            }
+
+            $counts['asset'] = $assets->count();
             $counts['accessory'] = \App\Models\Accessory::count();
             $counts['license'] = \App\Models\License::assetcount();
             $counts['consumable'] = \App\Models\Consumable::count();
