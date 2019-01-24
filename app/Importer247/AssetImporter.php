@@ -85,7 +85,11 @@ class AssetImporter extends ItemImporter
         } else {
             $this->log("No Matching Asset, Creating a new one");
             $asset = new Asset;
-            $asset_tag = Asset::autoincrement_asset();
+            if (strlen($asset_tag) > 0) {
+                
+            } else { 
+                $asset_tag = Asset::autoincrement_asset();
+            }
         }
 
         $this->item['image'] = $this->findCsvMatch($row, "image");
