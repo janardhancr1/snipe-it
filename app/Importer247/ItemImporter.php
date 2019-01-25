@@ -252,6 +252,8 @@ class ItemImporter extends Importer
         if ($asset_model) {
             $this->log("A matching model found, returning it.");
             return $asset_model->id;
+        } else {
+            $this->log("A matching model not found." . $this->item["manufacturer_id"] . "-" . $asset_modelNumber . "-" . $this->item["category_id"]);
         }
         return null;
     }
