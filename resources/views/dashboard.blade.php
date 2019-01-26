@@ -30,7 +30,7 @@
 <div class="row">
   <!-- panel -->
   <div class="col-lg-3 col-xs-6">
-      <a href="{{ route('hardware.index') }}">
+      <a href="{{ route('hardware247.index') }}">
         <!-- small box -->
         <div class="small-box bg-teal">
           <div class="inner">

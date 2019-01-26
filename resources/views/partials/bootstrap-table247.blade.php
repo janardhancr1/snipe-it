@@ -33,7 +33,7 @@
             stickyHeaderOffsetY: stickyHeaderOffsetY + 'px',
             undefinedText: '',
             iconsPrefix: 'fa',
-            cookie: true,
+            cookie: false,
             filterControl: true,
             cookieExpire: '2y',
             cookieIdTable: '{{ Route::currentRouteName() }}',
