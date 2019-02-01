@@ -18,6 +18,8 @@ class CategoriesImporter extends ItemImporter
     protected function handle($row)
     {
         $item_category = $this->findCsvMatch($row, "category");
-        $this->createOrFetchCategory($item_category);
+        $item_category_code = $this->findCsvMatch($row, "categorycode");
+        $item_erp_category_code = $this->findCsvMatch($row, "erpcategory");
+        $this->createOrFetchCategory($item_category, $item_category_code, $item_erp_category_code);
     }
 }

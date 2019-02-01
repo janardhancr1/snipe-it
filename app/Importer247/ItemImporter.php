@@ -5,6 +5,8 @@ namespace App\Importer247;
 use App\Importer\UserImporter;
 use App\Models\AssetModel;
 use App\Models\Category;
+use App\Models\Category247;
+use App\Models\ErpCategory;
 use App\Models\Company;
 use App\Models\Location;
 use App\Models\Manufacturer;
@@ -266,7 +268,7 @@ class ItemImporter extends Importer
      * @return int Id of category created/found
      * @internal param string $item_type
      */
-    public function createOrFetchCategory($asset_category)
+    public function createOrFetchCategory($asset_category, $category_code, $erpcategory)
     {
         // Magic to transform "AssetImporter" to "asset" or similar.
         $classname = class_basename(get_class($this));
@@ -277,15 +279,19 @@ class ItemImporter extends Importer
         if (empty($asset_category)) {
             $asset_category = 'Unnamed Category';
         }
-        $category = Category::where(['name' => $asset_category, 'category_type' => $item_type])->first();
+        $category = Category247::where(['name' => $asset_category, 'category_type' => $item_type])->first();
 
         if ($category) {
             $this->log("A matching category: " . $asset_category . " already exists");
             return $category->id;
         }
+        $this->log('Category ' . $asset_category .  ' ' . $category_code . ' ' . $erpcategory .' was created');
+        $erpCategoryRow = ErpCategory::where(['name' => $erpcategory])->first();
 
-        $category = new Category();
+        $category = new Category247();
         $category->name = $asset_category;
+        $category->category_code = $category_code;
+        $category->erp_category_id = $erpCategoryRow->id;
         $category->category_type = $item_type;
         $category->user_id = $this->user_id;
 

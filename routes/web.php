@@ -17,6 +17,13 @@ Route::group(['middleware' => 'auth'], function () {
     ]);
 
     /*
+    * Categories247
+    */
+    Route::resource('categories247', 'Categories247Controller', [
+        'parameters' => ['category' => 'category_id']
+    ]);
+
+    /*
     * Locations
     */
     Route::resource('locations', 'LocationsController', [

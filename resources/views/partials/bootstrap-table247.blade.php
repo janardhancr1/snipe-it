@@ -333,6 +333,7 @@
         'models',
         'licenses',
         'categories',
+        'categories247',
         'suppliers',
         'departments',
         'companies',

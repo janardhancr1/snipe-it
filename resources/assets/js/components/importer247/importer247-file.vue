@@ -146,6 +146,9 @@
                         {id: 'serial', text: 'Serial Number' },
                         {id: 'supplier', text: 'Supplier' },
                         {id: 'username', text: 'Username' },
+                        {id: 'categorycode', text: 'Category Code' },
+                        {id: 'erpcategory', text: 'ERP Category' },
+                        {id: 'fieldset', text: 'Field Set' },
                     ],
                     assets: [
                         {id: 'asset_tag', text: 'Asset Tag' },

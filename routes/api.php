@@ -88,6 +88,34 @@ Route::group(['prefix' => 'v1','namespace' => 'Api'], function () {
         ]
     ); // Categories resource
 
+    /*--- Categories247 API ---*/
+
+    Route::group(['prefix' => 'categories247'], function () {
+
+        Route::get('{item_type}/selectlist',
+            [
+                'as' => 'api.categories247.selectlist',
+                'uses' => 'Categories247Controller@selectlist'
+            ]
+        );
+
+    }); // Categories247 group
+
+
+    Route::resource('categories247', 'Categories247Controller',
+        [
+            'names' =>
+                [
+                    'index' => 'api.categories247.index',
+                    'show' => 'api.categories247.show',
+                    'store' => 'api.categories247.store',
+                    'update' => 'api.categories247.update',
+                    'destroy' => 'api.categories247.destroy'
+                ],
+            'except' => ['edit', 'create'],
+            'parameters' => ['category' => 'category_id']
+        ]
+    ); // Categories247 resource
 
     /*--- Companies API ---*/
 

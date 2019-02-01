@@ -550,7 +550,7 @@
 
                         @can('view', \App\Models\Category::class)
                             <li>
-                                <a href="{{ route('categories.index') }}" {{ (Request::is('/categories') ? ' class="active"' : '') }}>
+                                <a href="{{ route('categories247.index') }}" {{ (Request::is('/categories247') ? ' class="active"' : '') }}>
                                     {{ trans('general.categories') }}
                                 </a>
                             </li>

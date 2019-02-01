@@ -52,6 +52,12 @@ class AssetImporter extends ItemImporter
                 }
             }
         }
+        $this->item['model_id'] = $this->fetchAssetModel($row);
+        $serialNoExists = Asset::where(['model_id' => $this->item["model_id"], 'serial' => $this->item['serial']])->first();
+        if($serialNoExists){
+            $row["Errors"] .= "Serial Number already exists, ";
+            $createAsset = false;
+        }
         $row["Errors"] = rtrim($row["Errors"], ", ");
         if($createAsset) {
             $this->createAssetIfNotExists($row);
@@ -72,6 +78,7 @@ class AssetImporter extends ItemImporter
      */
     public function createAssetIfNotExists(array $row)
     {
+        $settings = \App\Models\Setting::all()->first();
         $editingAsset = false;
         $asset_tag = $this->findCsvMatch($row, "asset_tag");
         $asset = Asset::where(['asset_tag'=> $asset_tag])->first();
@@ -89,7 +96,18 @@ class AssetImporter extends ItemImporter
             if (strlen($asset_tag) > 0) {
                 
             } else { 
-                $asset_tag = Asset::autoincrement_asset();
+                $asset_tag = $settings->next_auto_tag_base;
+                if ($settings->zerofill_count > 0) {
+                    $asset_tag = $settings->auto_increment_prefix.Asset::zerofill($settings->next_auto_tag_base, $settings->zerofill_count);
+                } else {
+                    $asset_tag = $settings->auto_increment_prefix.$settings->next_auto_tag_base;
+                }
+
+                //$asset_tag = Asset::autoincrement_asset();
+                $category = Category::where(['id' => $this->item['category_id']])->first();
+                if ($category) {
+                    $asset_tag = $category->category_code . $asset_tag;
+                } 
             }
         }
 
@@ -138,7 +156,7 @@ class AssetImporter extends ItemImporter
             $asset->logCreate('Imported using csv importer');
             $this->log('Asset ' . $this->item["name"] . ' with serial number ' . $this->item['serial'] . ' was created');
 
-            $settings = \App\Models\Setting::getSettings();
+            
             $settings->next_auto_tag_base ++;
             $settings->save();
 

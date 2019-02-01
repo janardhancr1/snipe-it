@@ -8,4 +8,6 @@
         'useradded'          => 'User is already associated',
         'userassoc_success'  => 'Used added to location',
         'template'           => 'Download Template',
+        'code'               => 'Category Code',
+        'erpcategory'        => 'ERP Category'
     ];

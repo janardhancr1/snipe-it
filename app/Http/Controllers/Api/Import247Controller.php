@@ -154,7 +154,7 @@ class Import247Controller extends Controller
                 $redirectTo = "manufacturers.index";
                 break;
             case "categories":
-                $redirectTo = "categories.index";
+                $redirectTo = "categories247.index";
                 break;
             case "assetmodel":
                 $redirectTo = "models.index";

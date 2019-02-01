@@ -26,6 +26,7 @@ class AssetModelImporter extends ItemImporter
         $this->item["model_number"] = $asset_modelNumber;
 
         $item_category = $this->findCsvMatch($row, "category");
+        $item_fieldset = $this->findCsvMatch($row, "fieldset");
         $category = Category::where(['name' => $item_category])->first();
 
         if ($category) {
@@ -53,7 +54,7 @@ class AssetModelImporter extends ItemImporter
             return;
         } else {
             $asset_model = new AssetModel;
-            $fieldset = CustomFieldset::where(['name' => $item_category])->first();
+            $fieldset = CustomFieldset::where(['name' => $item_fieldset])->first();
             if($fieldset){
                 $this->item['fieldset_id'] = $fieldset->id;
             } else {
