@@ -25,7 +25,7 @@ class AssetImporter extends ItemImporter
         parent::handle($row);
         $createAsset = true;
 
-        $filename = config('app.private_uploads') . '/imports/importerror.csv';
+        $filename = config('app.private_uploads') . '/imports/importerror-' . date("Y-m-d_H:i:s") . '.csv';
         $writer = Writer::createFromPath($filename, 'a');
         $row["Errors"] = "Invalid data for these master : ";
         if ($this->customFields) {
