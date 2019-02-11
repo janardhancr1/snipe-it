@@ -25,7 +25,7 @@ class AssetFiles247Controller extends Controller
     public function store(AssetFileRequest $request, $assetId = null)
     {
         if (!$asset = Asset::find($assetId)) {
-            return redirect()->route('hardware247.index')->with('error', trans('admin/hardware247/message.does_not_exist'));
+            return redirect()->route('hardware247.index')->with('error', trans('admin/hardware/message.does_not_exist'));
         }
 
         $this->authorize('update', $asset);
@@ -40,10 +40,10 @@ class AssetFiles247Controller extends Controller
                 Storage::put('private_uploads/assets/'.$file_name, $file);
                 $asset->logUpload($file_name, e($request->get('notes')));
             }
-            return redirect()->back()->with('success', trans('admin/hardware247/message.upload.success'));
+            return redirect()->back()->with('success', trans('admin/hardware/message.upload.success'));
         }
 
-        return redirect()->back()->with('error', trans('admin/hardware247/message.upload.nofiles'));
+        return redirect()->back()->with('error', trans('admin/hardware/message.upload.nofiles'));
     }
 
     /**
@@ -89,7 +89,7 @@ class AssetFiles247Controller extends Controller
             return Storage::download($file);
         }
         // Prepare the error message
-        $error = trans('admin/hardware247/message.does_not_exist', ['id' => $fileId]);
+        $error = trans('admin/hardware/message.does_not_exist', ['id' => $fileId]);
 
         // Redirect to the hardware247 management page
         return redirect()->route('hardware247.index')->with('error', $error);
@@ -120,10 +120,10 @@ class AssetFiles247Controller extends Controller
             }
             $log->delete();
             return redirect()->back()
-                ->with('success', trans('admin/hardware247/message.deletefile.success'));
+                ->with('success', trans('admin/hardware/message.deletefile.success'));
         }
 
         // Redirect to the hardware247 management page
-        return redirect()->route('hardware247.index')->with('error', trans('admin/hardware247/message.does_not_exist'));
+        return redirect()->route('hardware247.index')->with('error', trans('admin/hardware/message.does_not_exist'));
     }
 }

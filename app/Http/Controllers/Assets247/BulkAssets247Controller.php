@@ -121,10 +121,10 @@ class BulkAssets247Controller extends Controller
                     ->where('id', $assetId)
                     ->update($this->update_array);
             } // endforeach
-            return redirect()->route("hardware247.index")->with('success', trans('admin/hardware247/message.update.success'));
+            return redirect()->route("hardware247.index")->with('success', trans('admin/hardware/message.update.success'));
         // no values given, nothing to update
         }
-        return redirect()->route("hardware247.index")->with('warning', trans('admin/hardware247/message.update.nothing_updated'));
+        return redirect()->route("hardware247.index")->with('warning', trans('admin/hardware/message.update.nothing_updated'));
 
     }
 
@@ -171,10 +171,10 @@ class BulkAssets247Controller extends Controller
                     ->where('id', $asset->id)
                     ->update($update_array);
             } // endforeach
-            return redirect()->to("hardware247")->with('success', trans('admin/hardware247/message.delete.success'));
+            return redirect()->to("hardware247")->with('success', trans('admin/hardware/message.delete.success'));
             // no values given, nothing to update
         }
-        return redirect()->to("hardware247")->with('info', trans('admin/hardware247/message.delete.nothing_updated'));
+        return redirect()->to("hardware247")->with('info', trans('admin/hardware/message.delete.nothing_updated'));
     }
 
     /**
@@ -201,7 +201,7 @@ class BulkAssets247Controller extends Controller
             $target = $this->determineCheckoutTarget();
 
             if (!is_array($request->get('selected_assets'))) {
-                return redirect()->route('hardware247/bulkcheckout')->withInput()->with('error', trans('admin/hardware247/message.checkout.no_assets_selected'));
+                return redirect()->route('hardware247/bulkcheckout')->withInput()->with('error', trans('admin/hardware/message.checkout.no_assets_selected'));
             }
 
             $asset_ids = array_filter($request->get('selected_assets'));
@@ -244,10 +244,10 @@ class BulkAssets247Controller extends Controller
 
             if (!$errors) {
               // Redirect to the new asset page
-                return redirect()->to("hardware247")->with('success', trans('admin/hardware247/message.checkout.success'));
+                return redirect()->to("hardware247")->with('success', trans('admin/hardware/message.checkout.success'));
             }
             // Redirect to the asset management page with error
-            return redirect()->to("hardware247/bulk-checkout")->with('error', trans('admin/hardware247/message.checkout.error'))->withErrors($errors);
+            return redirect()->to("hardware247/bulk-checkout")->with('error', trans('admin/hardware/message.checkout.error'))->withErrors($errors);
         } catch (ModelNotFoundException $e) {
             return redirect()->to("hardware247/bulk-checkout")->with('error', $e->getErrors());
         }

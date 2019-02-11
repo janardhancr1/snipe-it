@@ -31,7 +31,7 @@ class AssetCheckout247Controller extends Controller
         // Check if the asset exists
         if (is_null($asset = Asset::find(e($assetId)))) {
             // Redirect to the asset management page with error
-            return redirect()->route('hardware247.index')->with('error', trans('admin/hardware247/message.does_not_exist'));
+            return redirect()->route('hardware247.index')->with('error', trans('admin/hardware/message.does_not_exist'));
         }
 
         $this->authorize('checkout', $asset);
@@ -39,7 +39,7 @@ class AssetCheckout247Controller extends Controller
         if ($asset->availableForCheckout()) {
             return view('hardware247/checkout', compact('asset'));
         }
-        return redirect()->route('hardware247.index')->with('error', trans('admin/hardware247/message.checkout.not_available'));
+        return redirect()->route('hardware247.index')->with('error', trans('admin/hardware/message.checkout.not_available'));
 
         // Get the dropdown of users and then pass it to the checkout view
 
@@ -59,9 +59,9 @@ class AssetCheckout247Controller extends Controller
         try {
             // Check if the asset exists
             if (!$asset = Asset::find($assetId)) {
-                return redirect()->route('hardware247.index')->with('error', trans('admin/hardware247/message.does_not_exist'));
+                return redirect()->route('hardware247.index')->with('error', trans('admin/hardware/message.does_not_exist'));
             } elseif (!$asset->availableForCheckout()) {
-                return redirect()->route('hardware247.index')->with('error', trans('admin/hardware247/message.checkout.not_available'));
+                return redirect()->route('hardware247.index')->with('error', trans('admin/hardware/message.checkout.not_available'));
             }
             $this->authorize('checkout', $asset);
             $admin = Auth::user();
@@ -83,13 +83,13 @@ class AssetCheckout247Controller extends Controller
             }
 
             if ($asset->checkOut($target, $admin, $checkout_at, $expected_checkin, e($request->get('note')), $request->get('name'))) {
-                return redirect()->route("hardware247.index")->with('success', trans('admin/hardware247/message.checkout.success'));
+                return redirect()->route("hardware247.index")->with('success', trans('admin/hardware/message.checkout.success'));
             }
 
             // Redirect to the asset management page with error
-            return redirect()->to("hardware247/$assetId/checkout")->with('error', trans('admin/hardware247/message.checkout.error'))->withErrors($asset->getErrors());
+            return redirect()->to("hardware247/$assetId/checkout")->with('error', trans('admin/hardware/message.checkout.error'))->withErrors($asset->getErrors());
         } catch (ModelNotFoundException $e) {
-            return redirect()->back()->with('error', trans('admin/hardware247/message.checkout.error'))->withErrors($asset->getErrors());
+            return redirect()->back()->with('error', trans('admin/hardware/message.checkout.error'))->withErrors($asset->getErrors());
         } catch (CheckoutNotAllowed $e) {
             return redirect()->back()->with('error', $e->getMessage());
         }

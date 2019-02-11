@@ -29,7 +29,7 @@ class AssetCheckin247Controller extends Controller
         // Check if the asset exists
         if (is_null($asset = Asset::find($assetId))) {
             // Redirect to the asset management page with error
-            return redirect()->route('hardware247.index')->with('error', trans('admin/hardware247/message.does_not_exist'));
+            return redirect()->route('hardware247.index')->with('error', trans('admin/hardware/message.does_not_exist'));
         }
 
         $this->authorize('checkin', $asset);
@@ -52,7 +52,7 @@ class AssetCheckin247Controller extends Controller
         // Check if the asset exists
         if (is_null($asset = Asset::find($assetId))) {
             // Redirect to the asset management page with error
-            return redirect()->route('hardware247.index')->with('error', trans('admin/hardware247/message.does_not_exist'));
+            return redirect()->route('hardware247.index')->with('error', trans('admin/hardware/message.does_not_exist'));
         }
 
         $this->authorize('checkin', $asset);
@@ -61,7 +61,7 @@ class AssetCheckin247Controller extends Controller
             $user = $asset->assignedTo;
         }
         if (is_null($target = $asset->assignedTo)) {
-            return redirect()->route('hardware247.index')->with('error', trans('admin/hardware247/message.checkin.already_checked_in'));
+            return redirect()->route('hardware247.index')->with('error', trans('admin/hardware/message.checkin.already_checked_in'));
         }
 
         $asset->expected_checkin = null;
@@ -88,11 +88,11 @@ class AssetCheckin247Controller extends Controller
             event(new CheckoutableCheckedIn($asset, $target, Auth::user(), $request->input('note')));
 
             if ($backto=='user') {
-                return redirect()->route("users.show", $user->id)->with('success', trans('admin/hardware247/message.checkin.success'));
+                return redirect()->route("users.show", $user->id)->with('success', trans('admin/hardware/message.checkin.success'));
             }
-            return redirect()->route("hardware247.index")->with('success', trans('admin/hardware247/message.checkin.success'));
+            return redirect()->route("hardware247.index")->with('success', trans('admin/hardware/message.checkin.success'));
         }
         // Redirect to the asset management page with error
-        return redirect()->route("hardware247.index")->with('error', trans('admin/hardware247/message.checkin.error'));
+        return redirect()->route("hardware247.index")->with('error', trans('admin/hardware/message.checkin.error'));
     }
 }

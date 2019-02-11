@@ -503,7 +503,7 @@
               @endif
 
               @if  ($snipeSettings->qr_code=='1')
-                 <img src="{{ config('app.url') }}/hardware/{{ $asset->id }}/qr_code" class="img-thumbnail pull-right" style="height: 100px; width: 100px; margin-right: 10px;">
+                 <img src="{{ config('app.url') }}/hardware247/{{ $asset->id }}/qr_code" class="img-thumbnail pull-right" style="height: 100px; width: 100px; margin-right: 10px;">
               @endif
 
               @if (($asset->assignedTo) && ($asset->deleted_at==''))
@@ -647,7 +647,7 @@
             <div class="col-md-12">
               {{ Form::open([
                         'method' => 'POST',
-                        'route' => ['hardware/bulkedit'],
+                        'route' => ['hardware247/bulkedit'],
                         'class' => 'form-inline',
                          'id' => 'bulkForm']) }}
               <div id="toolbar">

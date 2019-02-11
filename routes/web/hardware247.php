@@ -13,7 +13,7 @@ Route::group(
     function () {
 
         Route::get( 'bulkaudit',  [
-            'as' => 'assets247.bulkaudit',
+            'as' => 'assets.bulkaudit',
             'uses' => 'Assets247\Assets247Controller@quickScan'
         ]);
 
@@ -22,7 +22,7 @@ Route::group(
             'parameters' => ['maintenance' => 'maintenance_id', 'asset' => 'asset_id']
         ]);
 
-        Route::get('requested', [ 'as' => 'assets247.requested', 'uses' => 'Assets247\Assets247Controller@getRequestedIndex']);
+        Route::get('requested', [ 'as' => 'assets.requested', 'uses' => 'Assets247\Assets247Controller@getRequestedIndex']);
 
         Route::get('scan', [
             'as' => 'asset.scan',
@@ -64,20 +64,20 @@ Route::group(
 
         Route::get('{assetId}/checkout', [
             'as' => 'checkout/hardware247',
-            'uses' => 'Assets247\AssetCheckoutController@create'
+            'uses' => 'Assets247\AssetCheckout247Controller@create'
         ]);
         Route::post('{assetId}/checkout', [
             'as' => 'checkout/hardware247',
-            'uses' => 'Assets247\AssetCheckoutController@store'
+            'uses' => 'Assets247\AssetCheckout247Controller@store'
         ]);
         Route::get('{assetId}/checkin/{backto?}', [
             'as' => 'checkin/hardware247',
-            'uses' => 'Assets247\AssetCheckinController@create'
+            'uses' => 'Assets247\AssetCheckin247Controller@create'
         ]);
 
         Route::post('{assetId}/checkin/{backto?}', [
             'as' => 'checkin/hardware247',
-            'uses' => 'Assets247\AssetCheckinController@store'
+            'uses' => 'Assets247\AssetCheckin247Controller@store'
         ]);
         Route::get('{assetId}/view', [
             'as' => 'hardware247.view',
@@ -91,17 +91,17 @@ Route::group(
         ]);
         Route::post('{assetId}/upload', [
             'as' => 'upload/asset',
-            'uses' => 'Assets247\AssetFilesController@store'
+            'uses' => 'Assets247\AssetFiles247Controller@store'
         ]);
 
         Route::get('{assetId}/showfile/{fileId}/{download?}', [
             'as' => 'show/assetfile',
-            'uses' => 'Assets247\AssetFilesController@show'
+            'uses' => 'Assets247\AssetFiles247Controller@show'
         ]);
 
         Route::delete('{assetId}/showfile/{fileId}/delete', [
             'as' => 'delete/assetfile',
-            'uses' => 'Assets247\AssetFilesController@destroy'
+            'uses' => 'Assets247\AssetFiles247Controller@destroy'
         ]);
 
 

@@ -199,7 +199,7 @@ class Assets247Controller extends Controller
         if ($success) {
             // Redirect to the asset listing page
             return redirect()->route('hardware247.index')
-                ->with('success', trans('admin/hardware247/message.create.success'));
+                ->with('success', trans('admin/hardware/message.create.success'));
         }
 
         return redirect()->back()->withInput()->withErrors($asset->getErrors());
@@ -218,7 +218,7 @@ class Assets247Controller extends Controller
     {
         if (!$item = Asset::find($assetId)) {
             // Redirect to the asset management page with error
-            return redirect()->route('hardware247.index')->with('error', trans('admin/hardware247/message.does_not_exist'));
+            return redirect()->route('hardware247.index')->with('error', trans('admin/hardware/message.does_not_exist'));
         }
         //Handles company checks and permissions.
         $this->authorize($item);
@@ -268,7 +268,7 @@ class Assets247Controller extends Controller
                 ->with('use_currency', $use_currency)->with('audit_log', $audit_log);
         }
 
-        return redirect()->route('hardware247.index')->with('error', trans('admin/hardware247/message.does_not_exist'));
+        return redirect()->route('hardware247.index')->with('error', trans('admin/hardware/message.does_not_exist'));
     }
 
 
@@ -286,7 +286,7 @@ class Assets247Controller extends Controller
         // Check if the asset exists
         if (!$asset = Asset::find($assetId)) {
             // Redirect to the asset management page with error
-            return redirect()->route('hardware247.index')->with('error', trans('admin/hardware247/message.does_not_exist'));
+            return redirect()->route('hardware247.index')->with('error', trans('admin/hardware/message.does_not_exist'));
         }
         $this->authorize($asset);
 
@@ -350,10 +350,10 @@ class Assets247Controller extends Controller
 
         if ($asset->save()) {
             return redirect()->route("hardware247.show", $assetId)
-                ->with('success', trans('admin/hardware247/message.update.success'));
+                ->with('success', trans('admin/hardware/message.update.success'));
         }
 
-        return redirect()->back()->withInput()->withErrors()->with('error', trans('admin/hardware247/message.does_not_exist'));
+        return redirect()->back()->withInput()->withErrors()->with('error', trans('admin/hardware/message.does_not_exist'));
 
     }
 
@@ -370,7 +370,7 @@ class Assets247Controller extends Controller
         // Check if the asset exists
         if (is_null($asset = Asset::find($assetId))) {
             // Redirect to the asset management page with error
-            return redirect()->route('hardware247.index')->with('error', trans('admin/hardware247/message.does_not_exist'));
+            return redirect()->route('hardware247.index')->with('error', trans('admin/hardware/message.does_not_exist'));
         }
 
         $this->authorize('delete', $asset);
@@ -389,7 +389,7 @@ class Assets247Controller extends Controller
 
         $asset->delete();
 
-        return redirect()->route('hardware247.index')->with('success', trans('admin/hardware247/message.delete.success'));
+        return redirect()->route('hardware247.index')->with('success', trans('admin/hardware/message.delete.success'));
     }
 
 
@@ -406,7 +406,7 @@ class Assets247Controller extends Controller
         $topsearch = ($request->get('topsearch')=="true");
 
         if (!$asset = Asset::where('asset_tag', '=', $request->get('assetTag'))->first()) {
-            return redirect()->route('hardware247.index')->with('error', trans('admin/hardware247/message.does_not_exist'));
+            return redirect()->route('hardware247.index')->with('error', trans('admin/hardware/message.does_not_exist'));
         }
         $this->authorize('view', $asset);
         return redirect()->route('hardware247.show', $asset->id)->with('topsearch', $topsearch);
@@ -490,7 +490,7 @@ class Assets247Controller extends Controller
         // Check if the asset exists
         if (is_null($asset_to_clone = Asset::find($assetId))) {
             // Redirect to the asset management page
-            return redirect()->route('hardware247.index')->with('error', trans('admin/hardware247/message.does_not_exist'));
+            return redirect()->route('hardware247.index')->with('error', trans('admin/hardware/message.does_not_exist'));
         }
 
         $this->authorize('create', $asset_to_clone);
@@ -682,9 +682,9 @@ class Assets247Controller extends Controller
             $logaction->user_id = Auth::user()->id;
             $logaction->logaction('restored');
 
-            return redirect()->route('hardware247.index')->with('success', trans('admin/hardware247/message.restore.success'));
+            return redirect()->route('hardware247.index')->with('success', trans('admin/hardware/message.restore.success'));
         }
-        return redirect()->route('hardware247.index')->with('error', trans('admin/hardware247/message.does_not_exist'));
+        return redirect()->route('hardware247.index')->with('error', trans('admin/hardware/message.does_not_exist'));
     }
 
     public function quickScan()
@@ -748,7 +748,7 @@ class Assets247Controller extends Controller
             Storage::putFileAs($path, $upload, $file_name);
 
             $asset->logAudit($request->input('note'), $request->input('location_id'), $file_name);
-            return redirect()->to("hardware247")->with('success', trans('admin/hardware247/message.audit.success'));
+            return redirect()->to("hardware247")->with('success', trans('admin/hardware/message.audit.success'));
         }
     }
 
