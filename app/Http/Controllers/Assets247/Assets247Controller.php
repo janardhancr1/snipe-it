@@ -743,9 +743,12 @@ class Assets247Controller extends Controller
             if (!Storage::exists($path)) Storage::makeDirectory($path, 775);
 
             $upload = $image = $request->file('image');
-            $ext = $image->getClientOriginalExtension();
-            $file_name = 'audit-'.str_random(18).'.'.$ext;
-            Storage::putFileAs($path, $upload, $file_name);
+            $file_name = '';
+            if($image) {
+                $ext = $image->getClientOriginalExtension();
+                $file_name = 'audit-'.str_random(18).'.'.$ext;
+                Storage::putFileAs($path, $upload, $file_name);
+            }
 
             $asset->logAudit($request->input('note'), $request->input('location_id'), $file_name);
             return redirect()->to("hardware247")->with('success', trans('admin/hardware/message.audit.success'));
