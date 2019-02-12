@@ -311,7 +311,7 @@ class ReportsController extends Controller
     public function postCustom(Request $request)
     {
         $this->authorize('reports.view');
-        \Debugbar::disable();
+        //\Debugbar::disable();
         $customfields = CustomField::get();
         $response = new StreamedResponse(function () use ($customfields, $request) {
 
