@@ -42,7 +42,7 @@ class Import247Controller extends Controller
     {
         //
         if (!Company::isCurrentUserAuthorized()) {
-            return redirect()->route('hardware.index')->with('error', trans('general.insufficient_permissions'));
+            return redirect()->route('hardware247.index')->with('error', trans('general.insufficient_permissions'));
         } elseif (!config('app.lock_passwords')) {
             $files = Input::file('files');
             $path = config('app.private_uploads').'/imports';
@@ -124,10 +124,10 @@ class Import247Controller extends Controller
         // Run a backup immediately before processing
         Artisan::call('backup:run');
         $errors = $request->import(Import::find($import_id));
-        $redirectTo = "hardware.index";
+        $redirectTo = "hardware247.index";
         switch ($request->get('import-type')) {
             case "asset":
-                $redirectTo = "hardware.index";
+                $redirectTo = "hardware247.index";
                 break;
             case "accessory":
                 $redirectTo = "accessories.index";
