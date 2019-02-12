@@ -15,7 +15,7 @@
                 <div class="box-body">
                     {{ Form::open([
                       'method' => 'POST',
-                      'route' => ['hardware/bulkedit'],
+                      'route' => ['hardware247/bulkedit'],
                       'class' => 'form-inline',
                        'id' => 'bulkForm']) }}
                     <div class="row">
