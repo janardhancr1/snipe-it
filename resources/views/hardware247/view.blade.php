@@ -496,6 +496,13 @@
             </div><!-- /col-md-8 -->
 
             <div class="col-md-4">
+            {{ Form::open([
+                  'method' => 'POST',
+                  'route' => ['asset.audit.store', $asset->id],
+                  'files' => true,
+                  'class' => 'form-horizontal' ]) }}
+                  <button type="submit" class="btn btn-success pull-right"><i class="fa fa-check icon-white"></i> {{ trans('general.audit') }}</button>
+                  <br/><br/><br/>
               @if ($asset->image)
                 <img src="{{ Storage::disk('public')->url(app('assets_upload_path').e($asset->image)) }}" class="assetimg img-responsive">
               @elseif (($asset->model) && ($asset->model->image!=''))
@@ -545,6 +552,7 @@
                 </ul>
 
 	          @endif
+            
             </div> <!-- div.col-md-4 -->
           </div><!-- /row -->
         </div><!-- /.tab-pane asset details -->

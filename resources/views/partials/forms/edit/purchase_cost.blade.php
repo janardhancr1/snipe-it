@@ -2,9 +2,16 @@
 <div class="form-group {{ $errors->has('purchase_cost') ? ' has-error' : '' }}">
     <label for="purchase_cost" class="col-md-3 control-label">{{ trans('general.purchase_cost') }}</label>
     <div class="col-md-9">
-        <div class="input-group col-md-3" style="padding-left: 0px;">
+        <div class="input-group col-md-4" style="padding-left: 0px;">
             <input class="form-control" type="text" name="purchase_cost" id="purchase_cost" value="{{ Input::old('purchase_cost', \App\Helpers\Helper::formatCurrencyOutput($item->purchase_cost)) }}" />
             <span class="input-group-addon">
+            <select id="currency">
+                <option value="INR">INR</option>
+                <option value="USD">USD</option>
+            </select>
+            </span>
+            <span class="input-group-addon hide">
+            
                 @if (isset($currency_type))
                     {{ $currency_type }}
                 @else
