@@ -17,7 +17,7 @@
           @if ($model->deleted_at=='')
             <li><a href="{{ route('models.edit', $model->id) }}">{{ trans('admin/models/table.edit') }}</a></li>
             <li><a href="{{ route('clone/model', $model->id) }}">{{ trans('admin/models/table.clone') }}</a></li>
-            <li><a href="{{ route('hardware.create', ['model_id' => $model->id]) }}">{{ trans('admin/hardware/form.create') }}</a></li>
+            <li><a href="{{ route('hardware247.create', ['model_id' => $model->id]) }}">{{ trans('admin/hardware/form.create') }}</a></li>
           @else
             <li><a href="{{ route('restore/model', $model->id) }}">{{ trans('admin/models/general.restore') }}</a></li>
           @endif
@@ -46,7 +46,7 @@
               <div class="col-md-12">
                   {{ Form::open([
                      'method' => 'POST',
-                     'route' => ['hardware/bulkedit'],
+                     'route' => ['hardware247/bulkedit'],
                      'class' => 'form-inline',
                       'id' => 'bulkForm']) }}
                   <div id="toolbar">

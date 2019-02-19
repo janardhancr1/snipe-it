@@ -46,7 +46,7 @@
         <div class="tab-pane fade in active" id="assets">
 
           <table
-                  data-columns="{{ \App\Presenters\AssetPresenter::dataTableLayout() }}"
+                  data-columns="{{ \App\Presenters\Asset247Presenter::dataTableLayout() }}"
                   data-cookie-id-table="assetsListingTable"
                   data-pagination="true"
                   data-id-table="assetsListingTable"
@@ -59,7 +59,7 @@
                   data-sort-order="asc"
                   id="assetsListingTable"
                   class="table table-striped snipe-table"
-                  data-url="{{ route('api.assets.index', ['manufacturer_id' => $manufacturer->id, 'itemtype' => 'assets']) }}"
+                  data-url="{{ route('api.assets247.index', ['manufacturer_id' => $manufacturer->id, 'itemtype' => 'assets']) }}"
                   data-export-options='{
               "fileName": "export-manufacturers-{{ str_slug($manufacturer->name) }}-assets-{{ date('Y-m-d') }}",
               "ignoreColumn": ["actions","image","change","checkbox","checkincheckout","icon"]
@@ -154,6 +154,6 @@
 @stop
 
 @section('moar_scripts')
-@include ('partials.bootstrap-table', ['exportFile' => 'manufacturer' . $manufacturer->name . '-export', 'search' => false])
+@include ('partials.bootstrap-table247', ['exportFile' => 'manufacturer' . $manufacturer->name . '-export', 'search' => false])
 
 @stop

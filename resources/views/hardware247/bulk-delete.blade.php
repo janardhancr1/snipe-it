@@ -17,7 +17,7 @@
   <!-- left column -->
   <div class="col-md-12">
     <p>{{ trans('admin/hardware/form.bulk_delete_help') }}</p>
-    <form class="form-horizontal" method="post" action="{{ route('hardware/bulkdelete') }}" autocomplete="off" role="form">
+    <form class="form-horizontal" method="post" action="{{ route('hardware247/bulkdelete') }}" autocomplete="off" role="form">
       {{csrf_field()}}
       <div class="box box-default">
         <div class="box-header with-border">

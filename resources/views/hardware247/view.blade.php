@@ -671,7 +671,7 @@
               <div class="table-responsive">
 
                 <table
-                        data-columns="{{ \App\Presenters\AssetPresenter::dataTableLayout() }}"
+                        data-columns="{{ \App\Presenters\AssetPresenter247::dataTableLayout() }}"
                         data-cookie-id-table="assetsTable"
                         data-pagination="true"
                         data-id-table="assetsTable"
@@ -683,7 +683,7 @@
                         data-sort-order="asc"
                         id="assetsListingTable"
                         class="table table-striped snipe-table"
-                        data-url="{{route('api.assets.index',['assigned_to' => $asset->id, 'assigned_type' => 'App\Models\Asset']) }}"
+                        data-url="{{route('api.assets247.index',['assigned_to' => $asset->id, 'assigned_type' => 'App\Models\Asset']) }}"
                         data-export-options='{
                               "fileName": "export-assets-{{ str_slug($asset->name) }}-assets-{{ date('Y-m-d') }}",
                               "ignoreColumn": ["actions","image","change","checkbox","checkincheckout","icon"]
@@ -867,6 +867,6 @@
 @stop
 
 @section('moar_scripts')
-  @include ('partials.bootstrap-table')
+  @include ('partials.bootstrap-table247')
 
 @stop
