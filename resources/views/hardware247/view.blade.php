@@ -671,7 +671,7 @@
               <div class="table-responsive">
 
                 <table
-                        data-columns="{{ \App\Presenters\AssetPresenter247::dataTableLayout() }}"
+                        data-columns="{{ \App\Presenters\Asset247Presenter::dataTableLayout() }}"
                         data-cookie-id-table="assetsTable"
                         data-pagination="true"
                         data-id-table="assetsTable"
