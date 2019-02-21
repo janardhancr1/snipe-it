@@ -148,6 +148,11 @@ Route::resource('hardware247', 'Assets247\Assets247Controller', [
     'parameters' => ['asset' => 'asset_id']
 ]);
 
+Route::resource('hardware', 'Assets247\Assets247Controller', [
+    'middleware' => ['auth'],
+    'parameters' => ['asset' => 'asset_id']
+]);
+
 /*--- locationusers API ---*/
 
 Route::group(['prefix' => 'locationusers'], function () {

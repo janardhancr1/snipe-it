@@ -329,7 +329,7 @@ class Asset247Presenter extends Presenter
      */
     public function nameUrl()
     {
-        return (string) link_to_route('hardware.show', e($this->name), $this->id);
+        return (string) link_to_route('hardware247.show', e($this->name), $this->id);
     }
 
     public function modelUrl()
@@ -532,7 +532,7 @@ class Asset247Presenter extends Presenter
      */
     public function viewUrl()
     {
-        return route('hardware.show', $this->id);
+        return route('hardware247.show', $this->id);
     }
 
     public function glyph()

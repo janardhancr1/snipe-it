@@ -32,7 +32,7 @@
           <div class="col-md-7 col-sm-12{{  (\App\Helpers\Helper::checkIfRequired($item, 'asset_tag')) ? ' required' : '' }}">
               <input class="form-control" readonly type="text" name="asset_tags[1]" id="asset_tag" value="{{ Input::old('asset_tag', \App\Models\Asset::autoincrement_asset()) }}" data-validation="required">
           </div>
-          <div class="col-md-2 col-sm-12">
+          <div class="col-md-2 col-sm-12 hide">
               <button class="add_field_button btn btn-default btn-sm"><i class="fa fa-plus"></i></button>
           </div>
       @endif
