@@ -315,7 +315,7 @@ class Asset247Presenter extends Presenter
             "sortable" => false,
             "switchable" => false,
             "title" => trans('table.actions'),
-            "formatter" => "hardwareActionsFormatter",
+            "formatter" => "hardware247ActionsFormatter",
         ];
 
         return json_encode($layout);
