@@ -7,6 +7,15 @@ use App\Models\Department;
 use App\Models\User;
 use App\Notifications\WelcomeNotification;
 
+/**
+ * This is ONLY used for the User Import. When we are importing users
+ * via an Asset/etc import, we use createOrFetchUser() in
+ * App\Importer.php. [ALG]
+ *
+ * Class UserImporter
+ * @package App\Importer
+ *
+ */
 class UserImporter extends ItemImporter
 {
     protected $users;
@@ -31,14 +40,14 @@ class UserImporter extends ItemImporter
      */
     public function createUserIfNotExists(array $row)
     {
-        // User Specific Bits
+        // Pull the records from the CSV to determine their values
         $this->item['username'] = $this->findCsvMatch($row, 'username');
         $this->item['first_name'] = $this->findCsvMatch($row, 'first_name');
         $this->item['last_name'] = $this->findCsvMatch($row, 'last_name');
         $this->item['email'] = $this->findCsvMatch($row, 'email');
         $this->item['phone'] = $this->findCsvMatch($row, 'phone_number');
         $this->item['jobtitle'] = $this->findCsvMatch($row, 'jobtitle');
-        $this->item['activated'] = $this->findCsvMatch($row, 'activated');
+        $this->item['activated'] =  ($this->fetchHumanBoolean($this->findCsvMatch($row, 'activated')) == 1) ? '1' : 0;
         $this->item['employee_num'] = $this->findCsvMatch($row, 'employee_num');
         $this->item['department_id'] = $this->createOrFetchDepartment($this->findCsvMatch($row, 'department'));
         $this->item['manager_id'] = $this->fetchManager($this->findCsvMatch($row, 'manager_first_name'), $this->findCsvMatch($row, 'manager_last_name'));
@@ -51,24 +60,31 @@ class UserImporter extends ItemImporter
         if ($user) {
             if (!$this->updating) {
                 $this->log('A matching User ' . $this->item["name"] . ' already exists.  ');
+                \Log::debug('A matching User ' . $this->item["name"] . ' already exists.  ');
                 return;
             }
             $this->log('Updating User');
             $user->update($this->sanitizeItemForUpdating($user));
             $user->save();
+            // \Log::debug('UserImporter.php Updated User ' . print_r($user, true));
             return;
         }
+
+
+
         // This needs to be applied after the update logic, otherwise we'll overwrite user passwords
         // Issue #5408
-        $this->item['password'] = $this->tempPassword;
+        $this->item['password'] = bcrypt($this->tempPassword);
 
         $this->log("No matching user, creating one");
         $user = new User();
         $user->fill($this->sanitizeItemForStoring($user));
+
         if ($user->save()) {
             // $user->logCreate('Imported using CSV Importer');
             $this->log("User " . $this->item["name"] . ' was created');
-            if($user->email) {
+
+            if(($user->email) && ($user->activated=='1')) {
                 $data = [
                     'email' => $user->email,
                     'username' => $user->username,

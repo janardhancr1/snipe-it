@@ -99,7 +99,7 @@ class LoginController extends Controller
     {
         $remote_user = $request->server('REMOTE_USER');
         if (Setting::getSettings()->login_remote_user_enabled == "1" && isset($remote_user) && !empty($remote_user)) {
-            LOG::debug("Authenticatiing via REMOTE_USER.");
+            Log::debug("Authenticatiing via REMOTE_USER.");
 
             $pos = strpos($remote_user, '\\');
             if ($pos > 0) {
@@ -108,10 +108,10 @@ class LoginController extends Controller
             
             try {
                 $user = User::where('username', '=', $remote_user)->whereNull('deleted_at')->where('activated', '=', '1')->first();
-                LOG::debug("Remote user auth lookup complete");
+                Log::debug("Remote user auth lookup complete");
                 if(!is_null($user)) Auth::login($user, true);
             } catch(Exception $e) {
-                LOG::error("There was an error authenticating the Remote user: " . $e->getMessage());
+                Log::debug("There was an error authenticating the Remote user: " . $e->getMessage());
             }
         }
     }
@@ -154,13 +154,13 @@ class LoginController extends Controller
             // If the user was unable to login via LDAP, log the error and let them fall through to
             // local authentication.
             } catch (\Exception $e) {
-                LOG::error("There was an error authenticating the LDAP user: ".$e->getMessage());
+                Log::debug("There was an error authenticating the LDAP user: ".$e->getMessage());
             }
         }
 
         // If the user wasn't authenticated via LDAP, skip to local auth
         if (!$user) {
-            LOG::debug("Authenticating user against database.");
+            Log::debug("Authenticating user against database.");
           // Try to log the user in
             if (!Auth::attempt(['username' => $request->input('username'), 'password' => $request->input('password'), 'activated' => 1], $request->input('remember'))) {
 
@@ -168,7 +168,7 @@ class LoginController extends Controller
                     $this->incrementLoginAttempts($request);
                 }
 
-                LOG::debug("Local authentication failed.");
+                Log::debug("Local authentication failed.");
                 return redirect()->back()->withInput()->with('error', trans('auth/message.account_not_found'));
             } else {
 

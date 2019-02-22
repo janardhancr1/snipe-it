@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Http\Transformers\LicensesTransformer;
+use App\Models\License;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Transformers\UsersTransformer;
@@ -61,7 +63,7 @@ class UsersController extends Controller
 
 
         if (($request->filled('deleted')) && ($request->input('deleted')=='true')) {
-            $users = $users->GetDeleted();
+            $users = $users->onlyTrashed();
         }
 
         if ($request->filled('company_id')) {
@@ -85,7 +87,7 @@ class UsersController extends Controller
         }
 
         $order = $request->input('order') === 'asc' ? 'asc' : 'desc';
-        $offset = request('offset', 0);
+        $offset = (($users) && (request('offset') > $users->count())) ? 0 : request('offset', 0);
         $limit = request('limit',  20);
 
         switch ($request->input('sort')) {
@@ -201,11 +203,12 @@ class UsersController extends Controller
 
 
         if ($user->save()) {
-            if ($request->filled('groups')) {
+            if ($request->has('groups')) {
                 $user->groups()->sync($request->input('groups'));
             } else {
                 $user->groups()->sync(array());
             }
+            
             return response()->json(Helper::formatStandardApiResponse('success', (new UsersTransformer)->transformUser($user), trans('admin/users/message.success.create')));
         }
         return response()->json(Helper::formatStandardApiResponse('error', null, $user->getErrors()));
@@ -240,6 +243,16 @@ class UsersController extends Controller
         $this->authorize('update', User::class);
 
         $user = User::findOrFail($id);
+
+        // This is a janky hack to prevent people from changing admin demo user data on the public demo.
+        // The $ids 1 and 2 are special since they are seeded as superadmins in the demo seeder.
+        // Thanks, jerks. You are why we can't have nice things. - snipe
+
+        if ((($id == 1) || ($id == 2)) && (config('app.lock_passwords'))) {
+            return response()->json(Helper::formatStandardApiResponse('error', null, 'Permission denied. You cannot update user information via API on the demo.'));
+        }
+
+
         $user->fill($request->all());
 
         if ($user->id == $request->input('manager_id')) {
@@ -312,6 +325,23 @@ class UsersController extends Controller
         $this->authorize('view', Asset::class);
         $assets = Asset::where('assigned_to', '=', $id)->where('assigned_type', '=', User::class)->with('model')->get();
         return (new AssetsTransformer)->transformAssets($assets, $assets->count());
+    }
+
+    /**
+     * Return JSON containing a list of licenses assigned to a user.
+     *
+     * @author [N. Mathar] [<snipe@snipe.net>]
+     * @since [v5.0]
+     * @param $userId
+     * @return string JSON
+     */
+    public function licenses($id)
+    {
+        $this->authorize('view', User::class);
+        $this->authorize('view', License::class);
+        $user = User::where('id', $id)->withTrashed()->first();
+        $licenses = $user->licenses()->get();
+        return (new LicensesTransformer())->transformLicenses($licenses, $licenses->count());
     }
 
     /**

@@ -442,6 +442,8 @@
                             {{ trans('general.asset_maintenances') }}
                           </a>
                       </li>
+                    @endcan
+                    @can('admin')
                       <li>
                           <a href="{{ url('hardware247/history') }}">
                             {{ trans('general.import-history') }}
@@ -802,6 +804,7 @@
 
     @section('moar_scripts')
     @show
+
 
     <script nonce="{{ csrf_token() }}">
         $.validate({

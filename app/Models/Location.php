@@ -58,6 +58,7 @@ class Location extends SnipeModel
         'ldap_ou',
         'manager_id',
         'currency',
+        'manager_id',
         'image',
     ];
     protected $hidden = ['user_id'];

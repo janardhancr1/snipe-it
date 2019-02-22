@@ -61,7 +61,7 @@ class ItemImportRequest extends FormRequest
 
     public function log($string)
     {
-        // \Log::Info($string);
+         \Log::Info($string);
     }
 
     public function progress($count)
