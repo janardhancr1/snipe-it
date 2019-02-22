@@ -7,6 +7,7 @@ use App\Http\Requests\AssetCheckoutRequest;
 use App\Http\Transformers\AssetsTransformer;
 use App\Models\Asset;
 use App\Models\AssetModel;
+use App\Models\Category;
 use App\Models\Company;
 use App\Models\Department;
 use App\Models\CustomField;
@@ -437,6 +438,7 @@ class Assets247Controller extends Controller
         $asset->requestable             = $request->get('requestable', 0);
         $asset->rtd_location_id         = $request->get('rtd_location_id', null);
 
+        
         // Update custom fields in the database.
         // Validation for these fields is handled through the AssetRequest form request
         $model = AssetModel::find($request->get('model_id'));
@@ -446,7 +448,18 @@ class Assets247Controller extends Controller
             }
         }
 
+        $category = Category::where(['id' => $model->category_id]);
+        if ($category) {
+            $asset->asset_tag = $category->category_code . $asset->asset_tag;
+        } 
+
+        $asset->asset_tag = $asset_tag;
+
         if ($asset->save()) {
+
+            $settings = \App\Models\Setting::all()->first();
+            $settings->next_auto_tag_base ++;
+            $settings->save();
 
             if ($request->get('assigned_user')) {
                 $target = User::find(request('assigned_user'));

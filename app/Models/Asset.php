@@ -713,8 +713,8 @@ class Asset extends Depreciable
      */
     public static function autoincrement_asset()
     {
-        $settings = \App\Models\Setting::getSettings();
-
+        //$settings = \App\Models\Setting::getSettings();
+        $settings = \App\Models\Setting::all()->first();
 
         if ($settings->auto_increment_assets == '1') {
             $temp_asset_tag = \DB::table('assets')
