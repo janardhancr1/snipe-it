@@ -164,7 +164,7 @@ class Department extends SnipeModel
     }
 
 
-    public static function scopeDepartmentables($query, $column = 'department_id', $table_name = null )
+    public static function scopeDepartmentables($query, $column = 'assets.department_id', $table_name = null )
     {
         // If not logged in and hitting this, assume we are on the command line and don't scope?'
         if (!static::isFullMultipleCompanySupportEnabled() || (Auth::check() && Auth::user()->isSuperUser()) || (!Auth::check())) {
