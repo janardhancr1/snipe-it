@@ -269,6 +269,7 @@
                     </div>
                   @endif
                 @endcan
+                @endcan
             </div>
             <!-- End button column -->
           </div> <!--/.row-->
@@ -302,7 +303,7 @@
                   <td>{!! $asset->present()->nameUrl() !!}</td>
                   <td class="hidden-print">
                     @can('checkin', $asset)
-                      <a href="{{ route('checkin/hardware', array('assetId'=> $asset->id, 'backto'=>'user')) }}" class="btn btn-primary btn-sm hidden-print">{{ trans('general.checkin') }}</a>
+                      <a href="{{ route('checkin/hardware247', array('assetId'=> $asset->id, 'backto'=>'user')) }}" class="btn btn-primary btn-sm hidden-print">{{ trans('general.checkin') }}</a>
                     @endcan
                   </td>
                 </tr>
@@ -449,7 +450,7 @@
                         @if ($file->filename)
                         <a href="{{ route('show/userfile', [$user->id, $file->id]) }}" class="btn btn-default">{{ trans('general.download') }}</a>
                         @endif
-                      </td>
+                      </td> 
                       <td>
                         @can('update', $user)
                         <a class="btn delete-asset btn-danger btn-sm hidden-print" href="{{ route('userfile.destroy', [$user->id, $file->id]) }}" data-content="Are you sure you wish to delete this file?" data-title="Delete {{ $file->filename }}?"><i class="fa fa-trash icon-white"></i></a>
