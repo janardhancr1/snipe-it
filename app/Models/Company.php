@@ -130,7 +130,7 @@ final class Company extends SnipeModel
 
     public static function isCurrentUserAuthorized()
     {
-        return ((!static::isFullMultipleCompanySupportEnabled()) || (Auth::user()->isSuperUser()));
+        return ((!static::isFullMultipleCompanySupportEnabled()) || (Auth::user()->isSuperUser()) || Auth::user()->hasAccess('admin'));
     }
 
     public static function canManageUsersCompanies()
