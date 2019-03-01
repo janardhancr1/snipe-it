@@ -19,7 +19,7 @@
 
 
   <!-- Asset Tag -->
-  <div class="form-group {{ $errors->has('asset_tag') ? ' has-error' : '' }}">
+  <div class="form-group {{ $errors->has('asset_tag') ? ' has-error' : '' }} hide">
     <label for="asset_tag" class="col-md-3 control-label">{{ trans('admin/hardware/form.tag') }}</label>
 
       <!-- we are editing an existing asset -->
@@ -39,8 +39,9 @@
       {!! $errors->first('asset_tags', '<span class="alert-msg"><i class="fa fa-times"></i> :message</span>') !!}
       {!! $errors->first('asset_tag', '<span class="alert-msg"><i class="fa fa-times"></i> :message</span>') !!}
   </div>
-    @include ('partials.forms.edit.serial', ['fieldname'=> 'serials[1]', 'translated_serial' => trans('admin/hardware/form.serial')])
-
+    @if  (!$item->id)
+        @include ('partials.forms.edit.serial', ['fieldname'=> 'serials[1]', 'translated_serial' => trans('admin/hardware/form.serial')])
+    @endif
     <div class="input_fields_wrap">
     </div>
 

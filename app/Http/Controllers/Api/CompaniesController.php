@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers\Api;
-
+use Illuminate\Support\Facades\Storage;
 use App\Http\Transformers\CompaniesTransformer;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
