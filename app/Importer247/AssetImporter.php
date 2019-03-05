@@ -58,6 +58,13 @@ class AssetImporter extends ItemImporter
             $row["Errors"] .= "Serial Number already exists, ";
             $createAsset = false;
         }
+
+        if(!Auth::user()->isSuperUser()){
+            if($this->item['department_id'] != Auth::user()->department_id || $this->item['location_id'] != Auth::user()->location_id){
+                $row["Errors"] .= "Department or location is not allowed, ";
+                $createAsset = false;
+            }
+        }
         $row["Errors"] = rtrim($row["Errors"], ", ");
         if($createAsset) {
             $this->createAssetIfNotExists($row);

@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\View;
 use App\Models\AssetModel;
+use App\Models\Asset;
 use Redirect;
 use App\Helpers\Helper;
 use Illuminate\Http\Request;
@@ -109,6 +110,7 @@ class AssetModelsController extends Controller
     {
         $this->authorize('update', AssetModel::class);
         if ($item = AssetModel::find($modelId)) {
+            $item->assets_count = Asset::where('model_id', '=', $item->id)->get()->count();
             $category_type = 'asset';
             $view = View::make('models/edit', compact('item','category_type'));
             $view->with('depreciation_list', Helper::depreciationList());
