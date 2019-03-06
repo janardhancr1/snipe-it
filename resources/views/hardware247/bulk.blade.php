@@ -78,7 +78,12 @@
               {{ trans('admin/hardware/form.cost') }}
             </label>
             <div class="input-group col-md-3">
-              <span class="input-group-addon">{{ $snipeSettings->default_currency }}</span>
+              <span class="input-group-addon">
+                <select id="currency">
+                  <option value="INR">INR</option>
+                  <option value="USD">USD</option>
+                </select>
+              </span>
                 <input type="text" class="form-control" placeholder="{{ trans('admin/hardware/form.cost') }}" name="purchase_cost" id="purchase_cost" value="{{ Input::old('purchase_cost') }}">
                 {!! $errors->first('purchase_cost', '<span class="alert-msg"><i class="fa fa-times"></i> :message</span>') !!}
             </div>

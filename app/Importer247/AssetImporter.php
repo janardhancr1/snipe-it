@@ -8,6 +8,7 @@ use App\Models\Category;
 use App\Models\Manufacturer;
 use App\Models\Statuslabel;
 use League\Csv\Writer;
+use Illuminate\Support\Facades\Auth;
 
 class AssetImporter extends ItemImporter
 {
