@@ -39,14 +39,15 @@ class AssetImporter extends ItemImporter
                             $this->log('Custom Field ' . $customField->name . ' value not found in msater data.');
                             $row["Errors"] .= $customField->name . ", ";
                             $createAsset = false;
-                        } else {
-                            // Clear out previous data.
-                            //$this->item['custom_fields'][$customField->db_column_name()] = null;
-                            // Data not found in the custom fields master log and throws error
-                            $this->log('Custom Field ' . $customField->name . ' value not found.');
-                            $row["Errors"] .= $customField->name . ", ";
-                            $createAsset = false;
-                        }
+                        } 
+                        // else {
+                        //     // Clear out previous data.
+                        //     //$this->item['custom_fields'][$customField->db_column_name()] = null;
+                        //     // Data not found in the custom fields master log and throws error
+                        //     $this->log('Custom Field ' . $customField->name . ' value not found.');
+                        //     $row["Errors"] .= $customField->name . ", ";
+                        //     $createAsset = false;
+                        // }
                     }
                 }
             }
