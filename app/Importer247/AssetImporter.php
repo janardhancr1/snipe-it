@@ -2,13 +2,11 @@
 
 namespace App\Importer247;
 
-use App\Helpers\Helper;
 use App\Models\Asset;
 use App\Models\Category;
-use App\Models\Manufacturer;
 use App\Models\Statuslabel;
-use League\Csv\Writer;
 use Illuminate\Support\Facades\Auth;
+use League\Csv\Writer;
 
 class AssetImporter extends ItemImporter
 {
@@ -34,40 +32,40 @@ class AssetImporter extends ItemImporter
                 $customFieldValue = $this->array_smart_custom_field_fetch($row, $customField);
                 if (strlen($customFieldValue) > 0) {
                     $this->item['custom_fields'][$customField->db_column_name()] = $customFieldValue;
-                    $this->log('Custom Field '. $customField->name .': '.$customFieldValue);
-                    if($customField->element == 'listbox'){
+                    $this->log('Custom Field ' . $customField->name . ': ' . $customFieldValue);
+                    if ($customField->element == 'listbox') {
                         $values = $customField->formatFieldValuesAsArray();
-                        if(!in_array(strtolower(trim($customFieldValue)), array_map('strtolower', $values))) {
+                        if (!in_array(strtolower(trim($customFieldValue)), array_map('strtolower', $values))) {
                             $this->log('Custom Field ' . $customField->name . ' value not found in msater data.');
+                            $row["Errors"] .= $customField->name . ", ";
+                            $createAsset = false;
+                        } else {
+                            // Clear out previous data.
+                            //$this->item['custom_fields'][$customField->db_column_name()] = null;
+                            // Data not found in the custom fields master log and throws error
+                            $this->log('Custom Field ' . $customField->name . ' value not found.');
                             $row["Errors"] .= $customField->name . ", ";
                             $createAsset = false;
                         }
                     }
-                } else {
-                    // Clear out previous data.
-                    //$this->item['custom_fields'][$customField->db_column_name()] = null;
-                    // Data not found in the custom fields master log and throws error
-                    $this->log('Custom Field ' . $customField->name . ' value not found.');
-                    $row["Errors"] .= $customField->name . ", ";
-                    $createAsset = false;
                 }
             }
         }
         $this->item['model_id'] = $this->fetchAssetModel($row);
         $serialNoExists = Asset::where(['model_id' => $this->item["model_id"], 'serial' => $this->item['serial']])->first();
-        if($serialNoExists){
+        if ($serialNoExists) {
             $row["Errors"] .= "Serial Number already exists, ";
             $createAsset = false;
         }
 
-        if(Auth::user() && !Auth::user()->isSuperUser()){
-            if($this->item['department_id'] != Auth::user()->department_id || $this->item['location_id'] != Auth::user()->location_id){
+        if (Auth::user() && !Auth::user()->isSuperUser()) {
+            if ($this->item['department_id'] != Auth::user()->department_id || $this->item['location_id'] != Auth::user()->location_id) {
                 $row["Errors"] .= "Department or location is not allowed, ";
                 $createAsset = false;
             }
         }
         $row["Errors"] = rtrim($row["Errors"], ", ");
-        if($createAsset) {
+        if ($createAsset) {
             $this->createAssetIfNotExists($row);
         } else {
             $writer->insertOne($row);
@@ -89,7 +87,7 @@ class AssetImporter extends ItemImporter
         $settings = \App\Models\Setting::all()->first();
         $editingAsset = false;
         $asset_tag = $this->findCsvMatch($row, "asset_tag");
-        $asset = Asset::where(['asset_tag'=> $asset_tag])->first();
+        $asset = Asset::where(['asset_tag' => $asset_tag])->first();
         if ($asset) {
             if (!$this->updating) {
                 $this->log('A matching Asset ' . $asset_tag . ' already exists');
@@ -102,20 +100,20 @@ class AssetImporter extends ItemImporter
             $this->log("No Matching Asset, Creating a new one");
             $asset = new Asset;
             if (strlen($asset_tag) > 0) {
-                
-            } else { 
+
+            } else {
                 $asset_tag = $settings->next_auto_tag_base;
                 if ($settings->zerofill_count > 0) {
-                    $asset_tag = $settings->auto_increment_prefix.Asset::zerofill($settings->next_auto_tag_base, $settings->zerofill_count);
+                    $asset_tag = $settings->auto_increment_prefix . Asset::zerofill($settings->next_auto_tag_base, $settings->zerofill_count);
                 } else {
-                    $asset_tag = $settings->auto_increment_prefix.$settings->next_auto_tag_base;
+                    $asset_tag = $settings->auto_increment_prefix . $settings->next_auto_tag_base;
                 }
 
                 //$asset_tag = Asset::autoincrement_asset();
                 $category = Category::where(['id' => $this->item['category_id']])->first();
                 if ($category) {
                     $asset_tag = $category->category_code . $asset_tag;
-                } 
+                }
             }
         }
 
@@ -133,7 +131,7 @@ class AssetImporter extends ItemImporter
 
         // We need to save the user if it exists so that we can checkout to user later.
         // Sanitizing the item will remove it.
-        if(array_key_exists('checkout_target', $this->item)) {
+        if (array_key_exists('checkout_target', $this->item)) {
             $target = $this->item['checkout_target'];
         }
         $item = $this->sanitizeItemForStoring($asset, $editingAsset);
@@ -143,7 +141,6 @@ class AssetImporter extends ItemImporter
         if (isset($this->item["location_id"])) {
             $item['rtd_location_id'] = $this->item['location_id'];
         }
-
 
         if ($editingAsset) {
             $asset->update($item);
@@ -164,16 +161,15 @@ class AssetImporter extends ItemImporter
             $asset->logCreate('Imported using csv importer');
             $this->log('Asset ' . $this->item["name"] . ' with serial number ' . $this->item['serial'] . ' was created');
 
-            
-            $settings->next_auto_tag_base ++;
+            $settings->next_auto_tag_base++;
             $settings->save();
 
             // If we have a target to checkout to, lets do so.
-            if(isset($target)) {
+            if (isset($target)) {
                 $asset->fresh()->checkOut($target);
             }
             return;
         }
-        $this->logError($asset, 'Asset "' . $this->item['name'].'"');
+        $this->logError($asset, 'Asset "' . $this->item['name'] . '"');
     }
 }
