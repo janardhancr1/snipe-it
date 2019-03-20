@@ -32,7 +32,7 @@
                                 <span class="btn btn-info fileinput-button">
                                     <span>Select Import File...</span>
                                     <!-- The file input field used as target for the file upload widget -->
-                                    <input id="fileupload" type="file" name="files[]" data-url="{{ route('api.imports.index') }}" accept="text/csv">
+                                    <input id="fileupload" type="file" name="files[]" data-url="{{ route('api.imports247.index') }}" accept="text/csv">
                                 </span>
                                  @endif
 
