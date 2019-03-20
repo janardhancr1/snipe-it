@@ -815,7 +815,8 @@ Route::group(['prefix' => 'v1','namespace' => 'Api'], function () {
                     'show' => 'api.imports247.show',
                     'store' => 'api.imports247.store',
                     'update' => 'api.imports247.update',
-                    'destroy' => 'api.imports247.destroy'
+                    'destroy' => 'api.imports247.destroy',
+                    'getfile' => 'api.imports.getfile'
                 ],
             'except' => ['create', 'edit'],
             'parameters' => ['import' => 'import_id']
