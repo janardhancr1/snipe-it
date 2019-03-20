@@ -23,7 +23,7 @@ class Imports247Controller extends Controller
     }
 
     public function getfile(){
-        $path = storage_path('/private_uploads/imports/importerror.csv');
+        $path = storage_path('/private_uploads/imports/importerror-' . date("Y-m-d_H") . '.csv');
         return response()->download($path);
     }
 
