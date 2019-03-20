@@ -7,7 +7,7 @@ use App\Http\Requests\AssetCheckoutRequest;
 use App\Http\Transformers\AssetsTransformer;
 use App\Models\Asset;
 use App\Models\AssetModel;
-use App\Models\Category;
+use App\Models\Category247;
 use App\Models\Company;
 use App\Models\Department;
 use App\Models\CustomField;
@@ -448,7 +448,7 @@ class Assets247Controller extends Controller
             }
         }
 
-        $category = Category::where(['id' => $model->category_id]);
+        $category = Category247::where(['id' => $model->category_id])->first();
         if ($category) {
             $asset->asset_tag = $category->category_code . $asset->asset_tag;
         } 

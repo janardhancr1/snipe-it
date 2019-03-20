@@ -18,9 +18,9 @@
     <div style="padding-top: 200px">
       <img src="{{ url('/') }}/img/sad-panda.png" style="width: 200px; height: 200px;" class="pull-left">
             <div class="error-content">
-              <h3><i class="fa fa-warning text-yellow"></i> 403 Forbidden.</h3>
+              <h3><i class="fa fa-warning text-yellow"></i> Not Authorized.</h3>
               <p>
-                Sad panda. You are not authorized to do the thing. Maybe <a href="{{ url('/') }}">return to the dashboard</a>, or contact your administrator.
+              Sorry, you don't have access to perform this action. Maybe <a href="{{ url('/') }}">return to the dashboard</a>, or contact your administrator.
               </p>
 
     </div>

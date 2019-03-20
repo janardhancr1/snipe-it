@@ -41,9 +41,10 @@ class Import247Controller extends Controller
     public function store()
     {
         //
-        if (!Company::isCurrentUserAuthorized()) {
-            return redirect()->route('hardware247.index')->with('error', trans('general.insufficient_permissions'));
-        } elseif (!config('app.lock_passwords')) {
+        //if (!Company::isCurrentUserAuthorized()) {
+        //    return redirect()->route('hardware247.index')->with('error', trans('general.insufficient_permissions'));
+        //} else
+        if (!config('app.lock_passwords')) {
             $files = Input::file('files');
             $path = config('app.private_uploads').'/imports';
             $results = [];

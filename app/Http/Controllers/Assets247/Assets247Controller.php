@@ -7,6 +7,7 @@ use App\Http\Requests\ImageUploadRequest;
 use App\Models\Actionlog;
 use App\Models\Asset;
 use App\Models\AssetModel;
+use App\Models\Category247;
 use App\Models\Company;
 use App\Models\Location;
 use App\Models\Setting;
@@ -170,6 +171,11 @@ class Assets247Controller extends Controller
                     }
                 }
             }
+
+            $category = Category247::where(['id' => $model->category_id])->first();
+            if ($category) {
+                $asset->asset_tag = $category->category_code . $asset->asset_tag;
+            } 
 
             // Validate the asset before saving
             if ($asset->isValid() && $asset->save()) {
