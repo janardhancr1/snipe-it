@@ -508,7 +508,7 @@
                     </a>
                 </li>
             @endcan
-            @can('create', \App\Models\Asset::class)
+            @can('import', \App\Models\Asset::class)
                 <li{!! (Request::is('import247/*') ? ' class="active"' : '') !!}>
                     <a href="{{ route('imports247.index') }}">
                         <i class="fa fa-cloud-download"></i>

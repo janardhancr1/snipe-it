@@ -104,4 +104,15 @@ abstract class SnipePermissionsPolicy
     {
         return $user->hasAccess($this->columnName().'.edit');
     }
+
+    /**
+     * Determine whether the user can import the accessory.
+     *
+     * @param  \App\User  $user
+     * @return mixed
+     */
+    public function import(User $user, $item = null)
+    {
+        return $user->hasAccess($this->columnName().'.import');
+    }
 }

@@ -62,6 +62,12 @@ return array(
             'display'    => true,
         ),
         array(
+            'permission' => 'assets.import',
+            'label'      => 'Import ',
+            'note'       => '',
+            'display'    => true,
+        ),
+        array(
             'permission' => 'assets.checkout',
             'label'      => 'Checkout ',
             'note'       => '',
