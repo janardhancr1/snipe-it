@@ -53,8 +53,8 @@ class AssetImporter extends ItemImporter
             }
         }
 
+        $this->item['model_id'] = $this->fetchAssetModel($row);
         if (isset($this->item['model_id'])) {
-            $this->item['model_id'] = $this->fetchAssetModel($row);
             $serialNoExists = Asset::where(['model_id' => $this->item["model_id"], 'serial' => $this->item['serial']])->first();
             if ($serialNoExists) {
                 $asset_tag = $this->findCsvMatch($row, "asset_tag");
