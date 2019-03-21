@@ -130,6 +130,12 @@ abstract class Importer
 
         $this->populateCustomFields($headerRow);
 
+        $filename = config('app.private_uploads') . '/imports/importerror-' . date("Y-m-d_H") . '.csv';
+        $writer = Writer::createFromPath($filename, 'w+');
+        
+        $headerRow[] = "Erros";
+        $writer->insertOne($headerRow);
+
         DB::transaction(function () use (&$results) {
             Model::unguard();
             $resultsCount = sizeof($results);

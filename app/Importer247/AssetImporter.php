@@ -39,7 +39,7 @@ class AssetImporter extends ItemImporter
                             $this->log('Custom Field ' . $customField->name . ' value not found in msater data.');
                             $row["Errors"] .= $customField->name . ", ";
                             $createAsset = false;
-                        } 
+                        }
                         // else {
                         //     // Clear out previous data.
                         //     //$this->item['custom_fields'][$customField->db_column_name()] = null;
@@ -52,18 +52,32 @@ class AssetImporter extends ItemImporter
                 }
             }
         }
-        $this->item['model_id'] = $this->fetchAssetModel($row);
-        $serialNoExists = Asset::where(['model_id' => $this->item["model_id"], 'serial' => $this->item['serial']])->first();
-        if ($serialNoExists) {
-            $row["Errors"] .= "Serial Number already exists, ";
+
+        if (isset($this->item['model_id'])) {
+            $this->item['model_id'] = $this->fetchAssetModel($row);
+            $serialNoExists = Asset::where(['model_id' => $this->item["model_id"], 'serial' => $this->item['serial']])->first();
+            if ($serialNoExists) {
+                $asset_tag = $this->findCsvMatch($row, "asset_tag");
+                if ($serialNoExists->asset_tag != $asset_tag) {
+                    $row["Errors"] .= "Serial Number already exists, ";
+                    $createAsset = false;
+                }
+            }
+        } else {
+            $row["Errors"] .= "Model not found, ";
             $createAsset = false;
         }
 
-        if (Auth::user() && !Auth::user()->isSuperUser()) {
-            if ($this->item['department_id'] != Auth::user()->department_id || $this->item['location_id'] != Auth::user()->location_id) {
-                $row["Errors"] .= "Department or location is not allowed, ";
-                $createAsset = false;
+        if (isset($this->item['department_id']) && isset($this->item["location_id"])) {
+            if (Auth::user() && !Auth::user()->isSuperUser()) {
+                if ($this->item['department_id'] != Auth::user()->department_id || $this->item['location_id'] != Auth::user()->location_id) {
+                    $row["Errors"] .= "Department or location is not allowed, ";
+                    $createAsset = false;
+                }
             }
+        } else {
+            $row["Errors"] .= "Department or location is not found, ";
+            $createAsset = false;
         }
         $row["Errors"] = rtrim($row["Errors"], ", ");
         if ($createAsset) {
@@ -71,7 +85,7 @@ class AssetImporter extends ItemImporter
         } else {
             $writer->insertOne($row);
             $asset = new Asset;
-            $this->logError($asset,  'Asset "' . $this->item['name'].'"');
+            $this->logError($asset, 'Asset "' . $this->item['name'] . '"');
         }
     }
 
