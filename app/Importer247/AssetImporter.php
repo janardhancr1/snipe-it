@@ -3,6 +3,7 @@
 namespace App\Importer247;
 
 use App\Models\Asset;
+use App\Models\AssetModel;
 use App\Models\Category;
 use App\Models\Statuslabel;
 use Illuminate\Support\Facades\Auth;
@@ -55,6 +56,13 @@ class AssetImporter extends ItemImporter
 
         $this->item['model_id'] = $this->fetchAssetModel($row);
         if (isset($this->item['model_id'])) {
+            $modelExists = AssetModel::where(['id' => $this->item["model_id"]])->first();
+            if($modelExists){
+                if($modelExists->category_id != $this->item['category_id']){
+                    $row["Errors"] .= "Category cannot be updated, ";
+                    $createAsset = false;
+                }
+            }
             $serialNoExists = Asset::where(['model_id' => $this->item["model_id"], 'serial' => $this->item['serial']])->first();
             if ($serialNoExists) {
                 $asset_tag = $this->findCsvMatch($row, "asset_tag");
