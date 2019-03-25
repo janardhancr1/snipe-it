@@ -54,15 +54,20 @@ class AssetImporter extends ItemImporter
             }
         }
 
-        $this->item['model_id'] = $this->fetchAssetModel($row);
-        if (isset($this->item['model_id'])) {
-            $modelExists = AssetModel::where(['id' => $this->item["model_id"]])->first();
+        $asset_tag = $this->findCsvMatch($row, "asset_tag");
+        $asset = Asset::where(['asset_tag' => $asset_tag])->first();
+        if ($asset) {
+            $modelExists = AssetModel::where(['id' => $asset->model_id])->first();
             if($modelExists){
                 if($modelExists->category_id != $this->item['category_id']){
                     $row["Errors"] .= "Category cannot be updated, ";
                     $createAsset = false;
                 }
             }
+        }
+
+        $this->item['model_id'] = $this->fetchAssetModel($row);
+        if (isset($this->item['model_id'])) {
             $serialNoExists = Asset::where(['model_id' => $this->item["model_id"], 'serial' => $this->item['serial']])->first();
             if ($serialNoExists) {
                 $asset_tag = $this->findCsvMatch($row, "asset_tag");
