@@ -34,7 +34,7 @@ class ItemImporter extends Importer
             $this->item["category_id"] = $this->fetchCategory($item_category);
         }
 
-        $item_company_name = $this->findCsvMatch($row, "company");
+        $item_company_name = $this->findCsvMatch($row, "company", "24/7 Customer Pvt Ltd");
         if ($this->shouldUpdateField($item_company_name)) {
             $this->item["company_id"] = $this->fetchCompany($item_company_name);
         }
