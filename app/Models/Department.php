@@ -88,6 +88,22 @@ class Department extends SnipeModel
         return $this->hasMany('\App\Models\User', 'department_id');
     }
 
+    /**
+     * Establishes the department -> assets relationship
+     *
+     * @author A. Gianotto <snipe@snipe.net>
+     * @since [v1.0]
+     * @return \Illuminate\Database\Eloquent\Relations\Relation
+     */
+    public function assets()
+    {
+        return $this->hasMany('\App\Models\Asset', 'department_id')
+            ->whereHas('assetstatus', function ($query) {
+                    $query->where('status_labels.deployable', '=', 1)
+                        ->orWhere('status_labels.pending', '=', 1)
+                        ->orWhere('status_labels.archived', '=', 0);
+            });
+    }
 
     /**
      * Establishes the department -> manager relationship

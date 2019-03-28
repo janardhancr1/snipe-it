@@ -702,7 +702,17 @@ class Asset extends Depreciable
         return $this->belongsTo('\App\Models\Location', 'location_id');
     }
 
-
+    /**
+     * Establishes the asset -> location relationship
+     *
+     * @author [A. Gianotto] [<snipe@snipe.net>]
+     * @since [v2.0]
+     * @return \Illuminate\Database\Eloquent\Relations\Relation
+     */
+    public function department()
+    {
+        return $this->belongsTo('\App\Models\Department', 'department_id');
+    }
 
     /**
      * Get the next autoincremented asset tag

@@ -30,6 +30,7 @@ class AssetsTransformer
                 'id' => (int) $asset->model->id,
                 'name'=> e($asset->model->name)
             ] : null,
+            'department' => (($asset->department) && ($asset->department->name)) ? e($asset->department->name) : null,
             'model_number' => (($asset->model) && ($asset->model->model_number)) ? e($asset->model->model_number) : null,
             'eol' => ($asset->purchase_date!='') ? Helper::getFormattedDateObject($asset->present()->eol_date(), 'date') : null ,
             'status_label' => ($asset->assetstatus) ? [

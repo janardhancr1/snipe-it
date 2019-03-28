@@ -20,22 +20,84 @@ class Asset247Presenter extends Presenter
         $layout = [
             [
                 "field" => "checkbox",
-                "checkbox" => true
+                "checkbox" => true,
             ], [
-                "field" => "id",
-                "searchable" => false,
+                "field" => "asset_tag",
+                "searchable" => true,
                 "sortable" => true,
-                "switchable" => true,
-                "title" => trans('general.id'),
-                "visible" => false
+                "title" => trans('admin/hardware/table.asset_tag'),
+                "visible" => true,
+                "formatter" => "hardware247LinkFormatter",
+                "filterControl" => 'input',
+            ], [
+                "field" => "serial",
+                "searchable" => true,
+                "sortable" => true,
+                "title" => trans('admin/hardware/form.serial'),
+                "visible" => true,
+                "formatter" => "hardware247LinkFormatter",
+                "filterControl" => 'input',
+            ], [
+                "field" => "category",
+                "searchable" => true,
+                "sortable" => true,
+                "title" => trans('general.category'),
+                "visible" => true,
+                "formatter" => "categoriesLinkObjFormatter",
+                "filterControl" => 'input',
+            ], [
+                "field" => "manufacturer",
+                "searchable" => true,
+                "sortable" => true,
+                "title" => trans('general.manufacturer'),
+                "visible" => true,
+                "formatter" => "manufacturersLinkObjFormatter",
+                "filterControl" => 'input',
+            ], [
+                "field" => "model_number",
+                "searchable" => true,
+                "sortable" => true,
+                "title" => trans('admin/models/table.modelnumber'),
+                "visible" => true,
+                "filterControl" => 'input',
             ], [
                 "field" => "company",
                 "searchable" => true,
                 "sortable" => true,
                 "switchable" => true,
                 "title" => trans('general.company'),
+                "visible" => true,
+                "formatter" => 'assetCompanyObjFilterFormatter',
+            ], [
+                "field" => "location",
+                "searchable" => true,
+                "sortable" => true,
+                "title" => trans('admin/hardware/table.location'),
+                "visible" => true,
+                "formatter" => "deployedLocationFormatter",
+                "filterControl" => 'input',
+            ], [
+                "field" => "department",
+                "searchable" => true,
+                "sortable" => true,
+                "title" => trans('admin/hardware/table.department'),
+                "visible" => true,
+                "filterControl" => 'input',
+            ], [
+                "field" => "status_label",
+                "searchable" => true,
+                "sortable" => true,
+                "title" => trans('admin/hardware/table.status'),
+                "visible" => true,
+                "formatter" => "statuslabelsLinkObjFormatter",
+                "filterControl" => 'input',
+            ], [
+                "field" => "id",
+                "searchable" => false,
+                "sortable" => true,
+                "switchable" => true,
+                "title" => trans('general.id'),
                 "visible" => false,
-                "formatter" => 'assetCompanyObjFilterFormatter'
             ], [
                 "field" => "name",
                 "searchable" => true,
@@ -43,7 +105,7 @@ class Asset247Presenter extends Presenter
                 "title" => trans('admin/hardware/form.name'),
                 "visible" => true,
                 "formatter" => "hardware247LinkFormatter",
-                "filterControl" => 'input'
+                "filterControl" => 'input',
             ], [
                 "field" => "image",
                 "searchable" => false,
@@ -52,54 +114,15 @@ class Asset247Presenter extends Presenter
                 "title" => trans('admin/hardware/table.image'),
                 "visible" => true,
                 "formatter" => "imageFormatter",
-                "filterControl" => 'input'
+                "filterControl" => 'input',
             ], [
-                "field" => "asset_tag",
-                "searchable" => true,
-                "sortable" => true,
-                "title" => trans('admin/hardware/table.asset_tag'),
-                "visible" => true,
-                "formatter" => "hardware247LinkFormatter",
-                "filterControl" => 'input'
-            ], [
-                "field" => "serial",
-                "searchable" => true,
-                "sortable" => true,
-                "title" => trans('admin/hardware/form.serial'),
-                "visible" => true,
-                "formatter" => "hardware247LinkFormatter",
-                "filterControl" => 'input'
-            ],  [
                 "field" => "model",
                 "searchable" => true,
                 "sortable" => true,
                 "title" => trans('admin/hardware/form.model'),
                 "visible" => true,
                 "formatter" => "modelsLinkObjFormatter",
-                "filterControl" => 'input'
-            ], [
-                "field" => "model_number",
-                "searchable" => true,
-                "sortable" => true,
-                "title" => trans('admin/models/table.modelnumber'),
-                "visible" => false,
-                "filterControl" => 'input'
-            ], [
-                "field" => "category",
-                "searchable" => true,
-                "sortable" => true,
-                "title" => trans('general.category'),
-                "visible" => true,
-                "formatter" => "categoriesLinkObjFormatter",
-                "filterControl" => 'input'
-            ], [
-                "field" => "status_label",
-                "searchable" => true,
-                "sortable" => true,
-                "title" => trans('admin/hardware/table.status'),
-                "visible" => true,
-                "formatter" => "statuslabelsLinkObjFormatter",
-                "filterControl" => 'input'
+                "filterControl" => 'input',
             ], [
                 "field" => "assigned_to",
                 "searchable" => true,
@@ -107,7 +130,7 @@ class Asset247Presenter extends Presenter
                 "title" => trans('admin/hardware/form.checkedout_to'),
                 "visible" => true,
                 "formatter" => "polymorphicItemFormatter",
-                "filterControl" => 'input'
+                "filterControl" => 'input',
             ], [
                 "field" => "employee_number",
                 "searchable" => false,
@@ -115,15 +138,7 @@ class Asset247Presenter extends Presenter
                 "title" => trans('admin/users/table.employee_num'),
                 "visible" => false,
                 "formatter" => "employeeNumFormatter",
-                "filterControl" => 'input'
-            ],[
-                "field" => "location",
-                "searchable" => true,
-                "sortable" => true,
-                "title" => trans('admin/hardware/table.location'),
-                "visible" => true,
-                "formatter" => "deployedLocationFormatter",
-                "filterControl" => 'input'
+                "filterControl" => 'input',
             ], [
                 "field" => "rtd_location",
                 "searchable" => true,
@@ -131,23 +146,15 @@ class Asset247Presenter extends Presenter
                 "title" => trans('admin/hardware/form.default_location'),
                 "visible" => false,
                 "formatter" => "deployedLocationFormatter",
-                "filterControl" => 'input'
+                "filterControl" => 'input',
             ], [
-                "field" => "manufacturer",
-                "searchable" => true,
-                "sortable" => true,
-                "title" => trans('general.manufacturer'),
-                "visible" => false,
-                "formatter" => "manufacturersLinkObjFormatter",
-                "filterControl" => 'input'
-            ],[
                 "field" => "supplier",
                 "searchable" => true,
                 "sortable" => true,
                 "title" => trans('general.supplier'),
                 "visible" => false,
                 "formatter" => "suppliersLinkObjFormatter",
-                "filterControl" => 'input'
+                "filterControl" => 'input',
             ], [
                 "field" => "purchase_date",
                 "searchable" => true,
@@ -155,14 +162,14 @@ class Asset247Presenter extends Presenter
                 "visible" => false,
                 "title" => trans('general.purchase_date'),
                 "formatter" => "dateDisplayFormatter",
-                "filterControl" => 'datepicker'
+                "filterControl" => 'datepicker',
             ], [
                 "field" => "purchase_cost",
                 "searchable" => true,
                 "sortable" => true,
                 "title" => trans('general.purchase_cost'),
                 "footerFormatter" => 'sumFormatter',
-                "filterControl" => 'input'
+                "filterControl" => 'input',
             ], [
                 "field" => "order_number",
                 "searchable" => true,
@@ -170,7 +177,7 @@ class Asset247Presenter extends Presenter
                 "visible" => false,
                 "title" => trans('general.order_number'),
                 'formatter' => "orderNumberObjFilterFormatter",
-                "filterControl" => 'input'
+                "filterControl" => 'input',
             ], [
                 "field" => "eol",
                 "searchable" => false,
@@ -178,29 +185,29 @@ class Asset247Presenter extends Presenter
                 "visible" => false,
                 "title" => trans('general.eol'),
                 "formatter" => "dateDisplayFormatter",
-                "filterControl" => 'input'
+                "filterControl" => 'input',
             ], [
                 "field" => "warranty_months",
                 "searchable" => true,
                 "sortable" => true,
                 "visible" => false,
                 "title" => trans('admin/hardware/form.warranty'),
-                "filterControl" => 'input'
-            ],[
+                "filterControl" => 'input',
+            ], [
                 "field" => "warranty_expires",
                 "searchable" => false,
                 "sortable" => false,
                 "visible" => false,
                 "title" => trans('admin/hardware/form.warranty_expires'),
                 "formatter" => "dateDisplayFormatter",
-                "filterControl" => 'input'
-            ],[
+                "filterControl" => 'input',
+            ], [
                 "field" => "notes",
                 "searchable" => true,
                 "sortable" => true,
                 "visible" => false,
                 "title" => trans('general.notes'),
-                "filterControl" => 'input'
+                "filterControl" => 'input',
 
             ], [
                 "field" => "checkout_counter",
@@ -208,15 +215,15 @@ class Asset247Presenter extends Presenter
                 "sortable" => true,
                 "visible" => false,
                 "title" => trans('general.checkouts_count'),
-                "filterControl" => 'input'
+                "filterControl" => 'input',
 
-            ],[
+            ], [
                 "field" => "checkin_counter",
                 "searchable" => false,
                 "sortable" => true,
                 "visible" => false,
                 "title" => trans('general.checkins_count'),
-                "filterControl" => 'input'
+                "filterControl" => 'input',
 
             ], [
                 "field" => "requests_counter",
@@ -224,7 +231,7 @@ class Asset247Presenter extends Presenter
                 "sortable" => true,
                 "visible" => false,
                 "title" => trans('general.user_requests_count'),
-                "filterControl" => 'input'
+                "filterControl" => 'input',
 
             ], [
                 "field" => "created_at",
@@ -233,7 +240,7 @@ class Asset247Presenter extends Presenter
                 "visible" => false,
                 "title" => trans('general.created_at'),
                 "formatter" => "dateDisplayFormatter",
-                "filterControl" => 'datepicker'
+                "filterControl" => 'datepicker',
             ], [
                 "field" => "updated_at",
                 "searchable" => false,
@@ -241,7 +248,7 @@ class Asset247Presenter extends Presenter
                 "visible" => false,
                 "title" => trans('general.updated_at'),
                 "formatter" => "dateDisplayFormatter",
-                "filterControl" => 'datepicker'
+                "filterControl" => 'datepicker',
             ], [
                 "field" => "last_checkout",
                 "searchable" => false,
@@ -249,28 +256,28 @@ class Asset247Presenter extends Presenter
                 "visible" => false,
                 "title" => trans('admin/hardware/table.checkout_date'),
                 "formatter" => "dateDisplayFormatter",
-                "filterControl" => 'input'
+                "filterControl" => 'input',
             ], [
                 "field" => "expected_checkin",
                 "searchable" => false,
                 "sortable" => true,
                 "visible" => false,
                 "title" => trans('admin/hardware/form.expected_checkin'),
-                "formatter" => "dateDisplayFormatter"
+                "formatter" => "dateDisplayFormatter",
             ], [
                 "field" => "last_audit_date",
                 "searchable" => false,
                 "sortable" => true,
                 "visible" => false,
                 "title" => trans('general.last_audit'),
-                "formatter" => "dateDisplayFormatter"
+                "formatter" => "dateDisplayFormatter",
             ], [
                 "field" => "next_audit_date",
                 "searchable" => false,
                 "sortable" => true,
                 "visible" => false,
                 "title" => trans('general.next_audit_date'),
-                "formatter" => "dateDisplayFormatter"
+                "formatter" => "dateDisplayFormatter",
             ],
         ];
 
@@ -281,19 +288,19 @@ class Asset247Presenter extends Presenter
         // models. We only pass the fieldsets that pertain to each asset (via their model) so that we
         // don't junk up the REST API with tons of custom fields that don't apply
 
-        $fields =  CustomField::whereHas('fieldset', function ($query) {
+        $fields = CustomField::whereHas('fieldset', function ($query) {
             $query->whereHas('models');
         })->get();
 
         foreach ($fields as $field) {
             $layout[] = [
-                "field" => 'custom_fields.'.$field->convertUnicodeDbSlug(),
+                "field" => 'custom_fields.' . $field->convertUnicodeDbSlug(),
                 "searchable" => true,
                 "sortable" => true,
                 "switchable" => true,
-                "title" => ($field->field_encrypted=='1') ?'<i class="fa fa-lock"></i> '.e($field->name) : e($field->name),
+                "title" => ($field->field_encrypted == '1') ? '<i class="fa fa-lock"></i> ' . e($field->name) : e($field->name),
                 "formatter" => "customFieldsFormatter",
-                "filterControl" => 'input'
+                "filterControl" => 'input',
             ];
 
         }
@@ -303,10 +310,10 @@ class Asset247Presenter extends Presenter
             "searchable" => false,
             "sortable" => false,
             "switchable" => true,
-            "title" => trans('general.checkin').'/'.trans('general.checkout'),
+            "title" => trans('general.checkin') . '/' . trans('general.checkout'),
             "visible" => true,
             "formatter" => "hardwareInOutFormatter",
-            "filterControl" => 'input'
+            "filterControl" => 'input',
         ];
 
         $layout[] = [
@@ -320,8 +327,6 @@ class Asset247Presenter extends Presenter
 
         return json_encode($layout);
     }
-
-
 
     /**
      * Generate html link to this items name.
@@ -372,7 +377,7 @@ class Asset247Presenter extends Presenter
             $imagePath = $this->model->image;
         }
         if (!empty($imagePath)) {
-            return config('app.url').'/uploads/assets/'.$imagePath;
+            return config('app.url') . '/uploads/assets/' . $imagePath;
         }
         return $imagePath;
     }
@@ -386,7 +391,7 @@ class Asset247Presenter extends Presenter
 
         if (empty($this->model->name)) {
             if (isset($this->model->model)) {
-                return $this->model->model->name.' ('.$this->model->asset_tag.')';
+                return $this->model->model->name . ' (' . $this->model->asset_tag . ')';
             }
             return $this->model->asset_tag;
         }
@@ -406,10 +411,10 @@ class Asset247Presenter extends Presenter
         }
 
         if ($this->asset_tag) {
-            $str .= ' ('.$this->model->asset_tag.')';
+            $str .= ' (' . $this->model->asset_tag . ')';
         }
         if ($this->model->model) {
-            $str .= ' - '.$this->model->model->name;
+            $str .= ' - ' . $this->model->model->name;
         }
         return $str;
     }
@@ -420,7 +425,7 @@ class Asset247Presenter extends Presenter
     public function eol_date()
     {
 
-        if (( $this->purchase_date ) && ( $this->model )) {
+        if (($this->purchase_date) && ($this->model)) {
             $date = date_create($this->purchase_date);
             date_add($date, date_interval_create_from_date_string($this->model->model->eol . ' months'));
             return date_format($date, 'Y-m-d');
@@ -436,8 +441,8 @@ class Asset247Presenter extends Presenter
     {
 
         $today = date("Y-m-d");
-        $d1    = new DateTime($today);
-        $d2    = new DateTime($this->eol_date());
+        $d1 = new DateTime($today);
+        $d2 = new DateTime($this->eol_date());
 
         if ($this->eol_date() > $today) {
             $interval = $d2->diff($d1);
@@ -488,7 +493,8 @@ class Asset247Presenter extends Presenter
      * (if not deployed:)
      * Another Status Label
      */
-    public function fullStatusText() {
+    public function fullStatusText()
+    {
         // Make sure the status is valid
         if ($this->assetstatus) {
 
@@ -497,7 +503,7 @@ class Asset247Presenter extends Presenter
 
                 // If it's assigned and not set to the default "ready to deploy" status
                 if ($this->assetstatus->name != trans('general.ready_to_deploy')) {
-                    return trans('general.deployed'). ' (' . $this->model->assetstatus->name.')';
+                    return trans('general.deployed') . ' (' . $this->model->assetstatus->name . ')';
                 }
 
                 // If it's assigned to the default "ready to deploy" status, just

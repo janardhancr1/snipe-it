@@ -98,11 +98,11 @@ class Assets247Controller extends Controller
         if(!Auth::user()->isSuperUser())
         {
             $assets = LocationUsers::scopeUserAssets(Department::scopeDepartmentables(Company::scopeCompanyables(Asset::select('assets.*'),"company_id","assets")
-            ->with('location', 'assetstatus', 'assetlog', 'company', 'defaultLoc','assignedTo',
+            ->with('location', 'assetstatus', 'assetlog', 'company', 'department', 'defaultLoc','assignedTo',
             'model.category', 'model.manufacturer', 'model.fieldset','supplier')), Auth::user()->id);
         } else {
             $assets = Department::scopeDepartmentables(Company::scopeCompanyables(Asset::select('assets.*'),"company_id","assets")
-            ->with('location', 'assetstatus', 'assetlog', 'company', 'defaultLoc','assignedTo',
+            ->with('location', 'assetstatus', 'assetlog', 'company', 'department', 'defaultLoc','assignedTo',
             'model.category', 'model.manufacturer', 'model.fieldset','supplier'));
         }
         
