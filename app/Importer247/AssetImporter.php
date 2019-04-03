@@ -155,6 +155,7 @@ class AssetImporter extends ItemImporter
             $this->item['status_id'] = $this->defaultStatusLabelId;
         }
 
+        unset($this->item['_snipeit_qr_code_url_116']);
         $this->item['asset_tag'] = $asset_tag;
 
         // We need to save the user if it exists so that we can checkout to user later.
