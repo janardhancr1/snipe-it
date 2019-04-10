@@ -57,6 +57,11 @@ class Imports247Controller extends Controller
         return response()->download($path);
     }
 
+    public function getimporterrorfiles(){
+        $path = storage_path('/private_uploads/imports/importerror-' . date("Y-m-d") . '_0.csv');
+        return response()->download($path);
+    }
+
     public function getcustomfile(){
         //print_r($_REQUEST);
         if(isset($_REQUEST["filedsets"]) && count($_REQUEST["filedsets"]) > 0)

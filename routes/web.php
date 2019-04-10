@@ -526,6 +526,10 @@ Route::group([ 'prefix' => 'import247', 'middleware' => ['auth']], function () {
         'as' => 'imports247.getcustomfile',
         'uses' => 'Imports247Controller@getcustomfile'
     ]);
+    Route::get('/getimporterrorfiles', [
+        'as' => 'imports247.getimporterrorfiles',
+        'uses' => 'Imports247Controller@getimporterrorfiles'
+    ]);
     Route::post('/getcustomfile', [
         'as' => 'imports247.getcustomfilepost',
         'uses' => 'Imports247Controller@getcustomfile'

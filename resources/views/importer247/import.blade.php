@@ -56,7 +56,8 @@
                                 <a href="/import247/getmodelfile">Assets Model</a>,&nbsp;
                                 <a href="/import247/getassetfile">Assets</a>,&nbsp;
                                 <a href="/import247/getcustomfile">Custom Template</a></span>
-
+                                <br/><br/>
+                                Download: <a href="/import247/getimporterrorfiles">AutoImport Error File</a></span>
                             </div>
                         </div>
                         <div class="row">

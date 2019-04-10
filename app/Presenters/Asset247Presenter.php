@@ -91,7 +91,29 @@ class Asset247Presenter extends Presenter
                 "title" => trans('admin/models/table.modelnumber'),
                 "visible" => true,
                 "filterControl" => 'input',
-            ], [
+            ],
+        ];
+
+        $fields = CustomField::whereHas('fieldset', function ($query) {
+            $query->whereHas('models');
+        })->get();
+
+        foreach ($fields as $field) {
+            if ($field->name == 'Category 2' || $field->name == 'ERP Category') {
+                $layout[] = [
+                    "field" => 'custom_fields.' . $field->convertUnicodeDbSlug(),
+                    "searchable" => true,
+                    "sortable" => true,
+                    "switchable" => true,
+                    "title" => ($field->field_encrypted == '1') ? '<i class="fa fa-lock"></i> ' . e($field->name) : e($field->name),
+                    "formatter" => "customFieldsFormatter",
+                    "filterControl" => 'input',
+                ];
+            }
+        }
+
+        $layout[] = [
+            [
                 "field" => "id",
                 "searchable" => false,
                 "sortable" => true,
@@ -288,21 +310,22 @@ class Asset247Presenter extends Presenter
         // models. We only pass the fieldsets that pertain to each asset (via their model) so that we
         // don't junk up the REST API with tons of custom fields that don't apply
 
-        $fields = CustomField::whereHas('fieldset', function ($query) {
-            $query->whereHas('models');
-        })->get();
+        // $fields = CustomField::whereHas('fieldset', function ($query) {
+        //     $query->whereHas('models');
+        // })->get();
 
         foreach ($fields as $field) {
-            $layout[] = [
-                "field" => 'custom_fields.' . $field->convertUnicodeDbSlug(),
-                "searchable" => true,
-                "sortable" => true,
-                "switchable" => true,
-                "title" => ($field->field_encrypted == '1') ? '<i class="fa fa-lock"></i> ' . e($field->name) : e($field->name),
-                "formatter" => "customFieldsFormatter",
-                "filterControl" => 'input',
-            ];
-
+            if ($field->name != 'Category 2' && $field->name != 'ERP Category') {
+                $layout[] = [
+                    "field" => 'custom_fields.' . $field->convertUnicodeDbSlug(),
+                    "searchable" => true,
+                    "sortable" => true,
+                    "switchable" => true,
+                    "title" => ($field->field_encrypted == '1') ? '<i class="fa fa-lock"></i> ' . e($field->name) : e($field->name),
+                    "formatter" => "customFieldsFormatter",
+                    "filterControl" => 'input',
+                ];
+            }
         }
 
         $layout[] = [

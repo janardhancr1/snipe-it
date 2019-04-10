@@ -91,7 +91,7 @@
   @include ('partials.forms.edit.warranty')
   @include ('partials.forms.edit.notes')
 
-  @include ('partials.forms.edit.location-select247', ['translated_name' => trans('admin/hardware/form.default_location'), 'fieldname' => 'rtd_location_id'])
+  @include ('partials.forms.edit.location-select247', ['translated_name' => trans('admin/hardware/form.default_location'), 'fieldname' => 'rtd_location_id', 'required' => 'true'])
 
 
   @include ('partials.forms.edit.requestable', ['requestable_text' => trans('admin/hardware/general.requestable')])
