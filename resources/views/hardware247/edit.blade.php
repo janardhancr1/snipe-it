@@ -41,6 +41,8 @@
   </div>
     @if  (!$item->id)
         @include ('partials.forms.edit.serial', ['fieldname'=> 'serials[1]', 'translated_serial' => trans('admin/hardware/form.serial')])
+    @else
+        @include ('partials.forms.edit.serial', ['fieldname'=> 'serials[1]', 'readOnly' => 'true', 'translated_serial' => trans('admin/hardware/form.serial')])
     @endif
     <div class="input_fields_wrap">
     </div>
